@@ -3,6 +3,7 @@ import './App.css';
 // import CoinTable from '../CoinTable';
 import { getCoinsList } from '../../api/api';
 import { Coin } from '../../types/types';
+import CoinTable from '../CoinTable';
 
 type AppProps = Record<string, never>;
 type AppState = {
@@ -32,11 +33,11 @@ class App extends React.Component<AppProps, AppState> {
       <>
         <button onClick={this.getCoins}>get coins</button>
         <div className="movie__list">
-          {this.state.coinList.length !== 0
-            ? this.state.coinList.map((coin: Coin) => (
-                <div key={coin.uuid}>{coin.name}</div>
-              ))
-            : 'Use the search to find movie'}
+          {this.state.coinList.length !== 0 ? (
+            <CoinTable coinList={this.state.coinList} />
+          ) : (
+            'Use the search to find movie'
+          )}
         </div>
       </>
     );
