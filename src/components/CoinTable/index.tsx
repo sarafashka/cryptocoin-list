@@ -12,7 +12,6 @@ class CoinTable extends React.Component<CoinTableProps> {
   }
 
   render() {
-    // const { title, poster_path, vote_average } = this.props;
     return (
       <>
         <div className="coin-list">
