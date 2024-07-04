@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import ErrorIcon from '../../assets/svg/errorIcon';
 
 interface Props {
   children?: ReactNode;
@@ -24,6 +25,7 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="errorBoundary">
+          <ErrorIcon />
           <div className="message">
             <p className="content">
               Seems like an error occurred. Go to the main page

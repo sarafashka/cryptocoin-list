@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import { getCoinsList } from '../../api/api';
 import { Coin } from '../../types/types';
 import CoinTable from '../CoinTable';
 import Search from '../Search';
+import Footer from '../Footer';
+import ErrorIcon from '../../assets/svg/errorIcon';
 
 type AppProps = Record<string, never>;
 type AppState = {
@@ -17,19 +18,6 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { isLoading: false, coinList: [] };
   }
 
-  // async componentDidMount() {
-  // const loadedData = await getCoinsList();
-  // if (loadedData?.data.coins) {
-  //   this.setState({ coinList: loadedData.data.coins });
-  // }
-  // }
-  getCoins = async () => {
-    const loadedData = await getCoinsList();
-    if (loadedData?.data.coins) {
-      this.setState({ coinList: loadedData.data.coins });
-    }
-  };
-
   updateCoinsList = (loadedCoins: Coin[]) => {
     this.setState({ coinList: loadedCoins });
   };
@@ -37,7 +25,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <button onClick={this.getCoins}>get coins</button>
+        <ErrorIcon />
         <Search updatedCoinsList={this.updateCoinsList}></Search>
         <div className="movie__list">
           {this.state.coinList.length !== 0 ? (
@@ -46,6 +34,7 @@ class App extends React.Component<AppProps, AppState> {
             'Use the search to find crypto coins'
           )}
         </div>
+        <Footer />
       </>
     );
   }
