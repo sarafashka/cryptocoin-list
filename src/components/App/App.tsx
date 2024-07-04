@@ -1,10 +1,8 @@
 import React from 'react';
-import './App.css';
 import { Coin } from '../../types/types';
 import CoinTable from '../CoinTable';
 import Search from '../Search';
 import Footer from '../Footer';
-import ErrorIcon from '../../assets/svg/errorIcon';
 
 type AppProps = Record<string, never>;
 type AppState = {
@@ -25,7 +23,6 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <ErrorIcon />
         <Search updatedCoinsList={this.updateCoinsList}></Search>
         <div className="movie__list">
           {this.state.coinList.length !== 0 ? (

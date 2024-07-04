@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App/App.tsx';
-import './index.css';
+import './index.scss';
 import ErrorBoundary from './components/ErrorBoundary/index.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

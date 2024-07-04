@@ -1,5 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import ErrorIcon from '../../assets/svg/errorIcon';
+import ErrorIcon from '../icons/ErrorBoundaryIcon';
 
 interface Props {
   children?: ReactNode;

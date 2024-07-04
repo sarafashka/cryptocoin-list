@@ -1,7 +1,10 @@
 import React, { ChangeEvent } from 'react';
 import { getCoinsList } from '../../api/api';
-import './Search.module.scss';
 import { Coin } from '../../types/types';
+import SearchIcon from '../icons/SearchIcon';
+import styles from './Search.module.scss';
+
+const { search, search__input, search__submit } = styles;
 
 type SearchState = {
   searchValue: string;
@@ -66,20 +69,22 @@ class Search extends React.Component<SearchProps, SearchState> {
   render() {
     return (
       <>
-        <form className="search" onSubmit={this.handleSubmit}>
-          <label htmlFor="search">
+        <form onSubmit={this.handleSubmit}>
+          <div className={search}>
             <input
               id="search"
               type="text"
               value={this.state.searchValue}
-              className="search__input"
+              className={search__input}
               onChange={this.handleChange}
               placeholder="Search..."
               autoComplete="off"
               disabled={this.state.isLoading}
             />
-          </label>
-          <button type="submit" className="search__submit"></button>
+          </div>
+          <button type="submit" className={search__submit}>
+            <SearchIcon />
+          </button>
         </form>
 
         <div>

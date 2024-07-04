@@ -2,7 +2,7 @@ const ErrorIcon = () => (
   <svg
     width="100"
     height="100"
-    enable-background="new 0 0 512 512"
+    enableBackground="new 0 0 512 512"
     id="Layer_1"
     version="1.1"
     viewBox="0 0 512 512"
