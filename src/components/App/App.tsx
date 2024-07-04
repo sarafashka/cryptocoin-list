@@ -24,7 +24,7 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <>
         <Search updatedCoinsList={this.updateCoinsList}></Search>
-        <div className="movie__list">
+        <div>
           {this.state.coinList.length !== 0 ? (
             <CoinTable coinList={this.state.coinList} />
           ) : (

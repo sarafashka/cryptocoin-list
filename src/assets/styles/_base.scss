@@ -6,13 +6,13 @@
   font-size: $font-size;
   line-height: $line-height;
   font-weight: 400;
-  background-color: $background-primary;
   color: $text-secondary;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  background-color: $background-primary;
   color: $text-secondary;
   align-items: center;
   min-height: 100vh;

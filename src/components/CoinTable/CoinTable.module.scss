@@ -1,0 +1,45 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/constants';
+
+.coins {
+  padding: 20px 32px;
+  background-color: $base;
+  border-radius: 25px;
+
+  &__table {
+    border-collapse: collapse;
+  
+    tr {
+      border-bottom: 1px solid #2B2C3B;
+      cursor: pointer;
+      &:last-child {
+        border-bottom: none;
+      } 
+    } 
+
+    th {
+      text-transform: uppercase;
+      text-align: left;
+      padding: 24px 10px;
+    }
+
+    td {
+      padding: 24px 10px;
+    }
+  }
+
+    &__name {
+      @include H4;
+    }
+
+    &__symbol {
+      @include H4;
+      color: $accent;
+    }
+    &__rank,
+    &__price,
+    &__volume {
+      color: $text-primary;
+    }
+  
+}

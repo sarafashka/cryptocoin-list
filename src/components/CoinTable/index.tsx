@@ -1,10 +1,20 @@
 import React from 'react';
-import './CoinTable.module.scss';
 import { Coin } from '../../types/types';
+import styles from './CoinTable.module.scss';
 
-interface CoinTableProps {
+const {
+  coins,
+  coins__table,
+  coins__name,
+  coins__symbol,
+  coins__price,
+  coins__volume,
+  coins__rank,
+} = styles;
+
+type CoinTableProps = {
   coinList: Coin[];
-}
+};
 
 class CoinTable extends React.Component<CoinTableProps> {
   constructor(props: CoinTableProps) {
@@ -14,32 +24,27 @@ class CoinTable extends React.Component<CoinTableProps> {
   render() {
     return (
       <>
-        <div className="coin-list">
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className={coins}>
+          <table className={coins__table}>
             <thead>
               <tr>
-                <th>Coin</th>
                 <th>Name</th>
+                <th>Symbol</th>
                 <th>Price</th>
-                <th>24H Volume</th>
+                <th>Volume (24H)</th>
                 <th>Rank</th>
               </tr>
             </thead>
             <tbody>
               {this.props.coinList.map((coin) => (
                 <tr key={coin.uuid}>
-                  <td>
-                    <img
-                      src={coin.iconUrl}
-                      alt={coin.name}
-                      width="30"
-                      height="30"
-                    />
+                  <td className={coins__name}>{coin.name}</td>
+                  <td className={coins__symbol}>{coin.symbol}</td>
+                  <td className={coins__price}>
+                    ${Number(coin.price).toFixed(2)}
                   </td>
-                  <td>{coin.name}</td>
-                  <td>{coin.price}</td>
-                  <td>{coin['24hVolume']}</td>
-                  <td>{coin.rank}</td>
+                  <td className={coins__volume}>{coin['24hVolume']}</td>
+                  <td className={coins__rank}>{coin.rank}</td>
                 </tr>
               ))}
             </tbody>
