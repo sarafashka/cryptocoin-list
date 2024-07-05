@@ -30,3 +30,58 @@ export interface CoinsList {
     coins: Coin[];
   };
 }
+
+export interface Coin {
+  status: string;
+  data: {
+    coin: {
+      uuid: string;
+      symbol: string;
+      name: string;
+      description: string;
+      color: string;
+      iconUrl: string;
+      websiteUrl: string;
+      links: [
+        {
+          name: string;
+          url: string;
+          type: string;
+        },
+      ];
+      supply: {
+        confirmed: boolean;
+        supplyAt: number;
+        circulating: string;
+        total: string;
+        max: string;
+      };
+      '24hVolume': string;
+      marketCap: string;
+      fullyDilutedMarketCap: string;
+      price: string;
+      btcPrice: string;
+      priceAt: number;
+      change: string;
+      rank: number;
+      numberOfMarkets: number;
+      numberOfExchanges: number;
+      sparkline: string[];
+      allTimeHigh: {
+        price: string;
+        timestamp: number;
+      };
+      coinrankingUrl: string;
+      lowVolume: false;
+      listedAt: number;
+      notices: [
+        {
+          type: string;
+          value: string;
+        },
+      ];
+      contractAddresses: [];
+      tags: string[];
+    };
+  };
+}
