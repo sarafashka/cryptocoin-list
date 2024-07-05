@@ -28,7 +28,6 @@
   }
 }
 
-
 /* Buttons*/
 
 @mixin action-btn {
@@ -78,7 +77,6 @@
 
   @include mobile {
     font-size: 18px;
-
   }
 }
 
@@ -101,14 +99,13 @@
     font-size: 14px;
   }
 }
-  
-  @mixin B2 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 100%;
-    color: $text-primary;
-    @include mobile {
-      font-size: 14px;
-    }
-}
 
+@mixin B2 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  color: $text-primary;
+  @include mobile {
+    font-size: 14px;
+  }
+}

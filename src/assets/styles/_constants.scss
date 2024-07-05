@@ -4,16 +4,14 @@ $font-size: 16px;
 $line-height: 24px;
 
 /* Colors */
-$text-primary: #FFFFFF;
-$text-secondary: #898CA9;
-$background-primary: #0B0B0F;
-$base: #1A1B23;
-$accent:  #B982FF;
-$gradient-primary: linear-gradient(90deg, #18C8FF 0%, #933FFE 100%);
-$gradient-secondary: linear-gradient(90deg,  #933FFE 0%, #18C8FF 100%);
+$text-primary: #ffffff;
+$text-secondary: #898ca9;
+$background-primary: #0b0b0f;
+$base: #1a1b23;
+$accent: #b982ff;
+$gradient-primary: linear-gradient(90deg, #18c8ff 0%, #933ffe 100%);
+$gradient-secondary: linear-gradient(90deg, #933ffe 0%, #18c8ff 100%);
 
 /* Break points */
 $small-mobile: 321px;
 $mobile: 660px;
-
-

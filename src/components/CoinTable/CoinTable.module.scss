@@ -8,14 +8,14 @@
 
   &__table {
     border-collapse: collapse;
-  
+
     tr {
-      border-bottom: 1px solid #2B2C3B;
+      border-bottom: 1px solid #2b2c3b;
       cursor: pointer;
       &:last-child {
         border-bottom: none;
-      } 
-    } 
+      }
+    }
 
     th {
       text-transform: uppercase;
@@ -28,18 +28,23 @@
     }
   }
 
-    &__name {
-      @include H4;
-    }
+  &__name {
+    @include H4;
+    text-align: left;
+  }
 
-    &__symbol {
-      @include H4;
-      color: $accent;
-    }
-    &__rank,
-    &__price,
-    &__volume {
-      color: $text-primary;
-    }
-  
+  &__symbol {
+    @include H4;
+    text-align: left;
+    color: $accent;
+  }
+  &__price,
+  &__rank {
+    text-align: right;
+  }
+  &__rank,
+  &__price,
+  &__volume {
+    color: $text-primary;
+  }
 }
