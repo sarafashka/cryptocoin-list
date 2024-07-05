@@ -1,0 +1,13 @@
+.errorBoundary {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  gap: 30px;
+}
+
+.message {
+  text-align: center;
+}
