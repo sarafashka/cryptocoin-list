@@ -1,0 +1,6 @@
+@import '../../assets/styles/constants';
+@import '../../assets/styles/mixins';
+
+.errorTest__button {
+  @include action-btn;
+}

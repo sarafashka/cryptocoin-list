@@ -81,10 +81,10 @@ class Search extends React.Component<SearchProps, SearchState> {
               autoComplete="off"
               disabled={this.state.isLoading}
             />
+            <button type="submit" className={search__submit}>
+              <SearchIcon />
+            </button>
           </div>
-          <button type="submit" className={search__submit}>
-            <SearchIcon />
-          </button>
         </form>
 
         <div>

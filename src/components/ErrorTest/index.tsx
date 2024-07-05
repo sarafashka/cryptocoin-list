@@ -1,4 +1,7 @@
 import React from 'react';
+import styles from './ErrorTest.module.scss';
+
+const { errorTest__button } = styles;
 
 type ErrorTestProps = Record<string, never>;
 type ErrorTestState = {
@@ -22,7 +25,9 @@ class ErrorTest extends React.Component<ErrorTestProps, ErrorTestState> {
     }
     return (
       <>
-        <button onClick={this.handleClick}>Crush app</button>
+        <button className={errorTest__button} onClick={this.handleClick}>
+          Crush app
+        </button>
       </>
     );
   }
