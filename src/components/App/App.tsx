@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Coin } from '../../types/types';
 import CoinTable from '../CoinTable';
 import Search from '../Search';
@@ -7,41 +7,30 @@ import styles from './App.module.scss';
 
 const { app, main } = styles;
 
-type AppProps = Record<string, never>;
-type AppState = {
-  isLoading: boolean;
-  coinList: Coin[];
-};
+const App: React.FC = () => {
+  const [coinList, setCoinList] = useState<Coin[]>([]);
 
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = { isLoading: false, coinList: [] };
-  }
-
-  updateCoinsList = (loadedCoins: Coin[]) => {
-    this.setState({ coinList: loadedCoins });
+  const updateCoinsList = (loadedCoins: Coin[]) => {
+    setCoinList(loadedCoins);
   };
 
-  render() {
-    return (
-      <>
-        <div className={app}>
-          <main className={main}>
-            <Search updatedCoinsList={this.updateCoinsList}></Search>
-            <div>
-              {this.state.coinList.length !== 0 ? (
-                <CoinTable coinList={this.state.coinList} />
-              ) : (
-                'Use the search to find crypto coins'
-              )}
-            </div>
-          </main>
-          <Footer />
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <div className={app}>
+        <main className={main}>
+          <Search updatedCoinsList={updateCoinsList}></Search>
+          <div>
+            {coinList.length !== 0 ? (
+              <CoinTable coinList={coinList} />
+            ) : (
+              'Use the search to find crypto coins'
+            )}
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 export default App;
