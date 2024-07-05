@@ -5,7 +5,7 @@ const BASE_URL = 'https://api.coinranking.com/v2';
 const GET_COINS = 'coins';
 
 const COINS_OFFSET = 0;
-const COINS_LIMIT = 20;
+const COINS_LIMIT = 10;
 
 const options = {
   headers: {

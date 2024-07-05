@@ -5,7 +5,7 @@ import Search from '../Search';
 import Footer from '../Footer';
 import styles from './App.module.scss';
 
-const { app } = styles;
+const { app, main } = styles;
 
 type AppProps = Record<string, never>;
 type AppState = {
@@ -27,7 +27,7 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <>
         <div className={app}>
-          <main>
+          <main className={main}>
             <Search updatedCoinsList={this.updateCoinsList}></Search>
             <div>
               {this.state.coinList.length !== 0 ? (

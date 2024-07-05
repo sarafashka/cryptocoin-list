@@ -1,12 +1,15 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import ErrorIcon from '../icons/ErrorBoundaryIcon';
+import styles from './ErrorBoundary.module.scss';
 
-interface Props {
+const { errorBoundary, message, content } = styles;
+
+type Props = {
   children?: ReactNode;
-}
-interface State {
+};
+type State = {
   hasError: boolean;
-}
+};
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {
@@ -24,10 +27,10 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="errorBoundary">
+        <div className={errorBoundary}>
           <ErrorIcon />
-          <div className="message">
-            <p className="content">
+          <div className={message}>
+            <p className={content}>
               Seems like an error occurred. Go to the main page
             </p>
           </div>

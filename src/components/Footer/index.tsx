@@ -5,7 +5,6 @@ import styles from './Footer.module.scss';
 const { footer, footer__copyright } = styles;
 
 class Footer extends React.Component {
-  handleError = () => {};
   render() {
     return (
       <>

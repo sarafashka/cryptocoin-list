@@ -3,6 +3,7 @@ import { getCoinsList } from '../../api/api';
 import { Coin } from '../../types/types';
 import SearchIcon from '../icons/SearchIcon';
 import styles from './Search.module.scss';
+import Loader from '../Loader';
 
 const { search, search__input, search__submit } = styles;
 
@@ -69,6 +70,7 @@ class Search extends React.Component<SearchProps, SearchState> {
   render() {
     return (
       <>
+        <div>{this.state.isLoading ? <Loader /> : ''}</div>
         <form onSubmit={this.handleSubmit}>
           <div className={search}>
             <input
@@ -86,19 +88,6 @@ class Search extends React.Component<SearchProps, SearchState> {
             </button>
           </div>
         </form>
-
-        <div>
-          {this.state.isLoading ? (
-            <div className="lds-ring">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          ) : (
-            ''
-          )}
-        </div>
       </>
     );
   }
