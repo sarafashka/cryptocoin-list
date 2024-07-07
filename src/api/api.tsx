@@ -1,4 +1,4 @@
-import { Coin, CoinsList } from '../types/types';
+import { CoinDetailed, CoinsList } from '../types/types';
 
 const API_KEY = 'coinranking0e7711dc12205d9e181b6035e9e3c7503e649b8200b5117c';
 const BASE_URL = 'https://api.coinranking.com/v2';
@@ -30,7 +30,7 @@ export const getCoinsList = async (searchQuery?: string) => {
 };
 
 export const getCoin = async (uuid: string) => {
-  let data: null | Coin = null;
+  let data: null | CoinDetailed = null;
   const urlRequest = `${BASE_URL}${GET_COIN}/${uuid}`;
   try {
     const response = await fetch(urlRequest, options);

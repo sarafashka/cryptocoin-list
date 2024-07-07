@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { getCoinsList } from '../../api/api';
 import { Coin } from '../../types/types';
 import SearchIcon from '../icons/SearchIcon';
@@ -7,74 +7,90 @@ import Loader from '../Loader';
 
 const { search, search__input, search__submit } = styles;
 
+type SearchState = {
+  searchValue: string;
+  isLoading: boolean;
+};
+
 type SearchProps = {
   updatedCoinsList: (loadedCoins: Coin[]) => void;
 };
 
-const Search: React.FC<SearchProps> = ({ updatedCoinsList }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('searchValue') || ''
-  );
+class Search extends React.Component<SearchProps, SearchState> {
+  constructor(props: SearchProps) {
+    super(props);
+    this.state = {
+      searchValue: this.getSearchValue(),
+      isLoading: false,
+    };
+  }
 
-  useEffect(() => {
-    searchValue ? loadCoinsList() : loadCoinsListFirstTime;
-  });
+  getSearchValue() {
+    return localStorage.getItem('searchValue') || '';
+  }
 
-  const loadCoinsListFirstTime = async () => {
-    setIsLoading(true);
+  componentDidMount() {
+    this.state.searchValue
+      ? this.loadCoinsList()
+      : this.loadCoinsListFirstTime();
+  }
+
+  async loadCoinsListFirstTime() {
+    this.setState({ isLoading: true });
     const loadedCoinsList = await getCoinsList();
-    setIsLoading(false);
+    this.setState({ isLoading: false });
 
     if (loadedCoinsList) {
-      updatedCoinsList(loadedCoinsList.data.coins);
+      this.props.updatedCoinsList(loadedCoinsList.data.coins);
     }
-  };
+  }
 
-  const loadCoinsList = async () => {
-    setIsLoading(true);
-    const loadedCoinsList = await getCoinsList(searchValue);
-    setIsLoading(false);
+  async loadCoinsList() {
+    this.setState({ isLoading: true });
+    const loadedCoinsList = await getCoinsList(this.state.searchValue);
+    this.setState({ isLoading: false });
 
     if (loadedCoinsList) {
-      updatedCoinsList(loadedCoinsList.data.coins);
+      this.props.updatedCoinsList(loadedCoinsList.data.coins);
     }
 
-    localStorage.setItem('searchValue', searchValue);
-  };
+    localStorage.setItem('searchValue', this.state.searchValue);
+  }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setSearchValue(event.target.value);
+    this.setState({ searchValue: event.target.value });
   };
 
-  const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
+  handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    loadCoinsList();
+    this.loadCoinsList();
   };
 
-  return (
-    <>
-      <div>{isLoading ? <Loader /> : ''}</div>
-      <form onSubmit={handleSubmit}>
-        <div className={search}>
-          <input
-            id="search"
-            type="text"
-            value={searchValue}
-            className={search__input}
-            onChange={handleChange}
-            placeholder="Search..."
-            autoComplete="off"
-            disabled={isLoading}
-          />
-          <button type="submit" className={search__submit}>
-            <SearchIcon />
-          </button>
-        </div>
-      </form>
-    </>
-  );
-};
+  render() {
+    return (
+      <>
+        <div>{this.state.isLoading ? <Loader /> : ''}</div>
+        <form onSubmit={this.handleSubmit}>
+          <div className={search}>
+            <input
+              id="search"
+              type="text"
+              value={this.state.searchValue}
+              className={search__input}
+              onChange={this.handleChange}
+              placeholder="Search..."
+              autoComplete="off"
+              disabled={this.state.isLoading}
+            />
+            <button type="submit" className={search__submit}>
+              <SearchIcon />
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+}
 
 export default Search;

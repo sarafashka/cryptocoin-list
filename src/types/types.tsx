@@ -31,7 +31,7 @@ export interface CoinsList {
   };
 }
 
-export interface Coin {
+export interface CoinDetailed {
   status: string;
   data: {
     coin: {
