@@ -1,6 +1,7 @@
 import React from 'react';
 import { Coin } from '../../types/types';
 import styles from './CoinTable.module.scss';
+import { Link } from 'react-router-dom';
 
 const {
   coins,
@@ -33,7 +34,9 @@ const CoinTable: React.FC<CoinTableProps> = ({ coinList }) => {
           <tbody>
             {coinList.map((coin) => (
               <tr key={coin.uuid}>
-                <td className={coins__name}>{coin.name}</td>
+                <td className={coins__name}>
+                  <Link to={`/coins/${coin.uuid}`}>{coin.name}</Link>
+                </td>
                 <td className={coins__symbol}>{coin.symbol}</td>
                 <td className={coins__price}>
                   ${Number(coin.price).toFixed(2)}

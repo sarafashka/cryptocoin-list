@@ -13,3 +13,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.coins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  &__list {
+    grid-column: span 2;
+  }
+}
