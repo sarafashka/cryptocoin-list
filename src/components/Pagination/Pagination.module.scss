@@ -1,0 +1,18 @@
+@import '../../assets/styles/constants';
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+
+&__buttons {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+    &:hover {
+      color: $accent;
+    }
+  }
+  &__current {
+    color: $text-primary;
+  }
+}

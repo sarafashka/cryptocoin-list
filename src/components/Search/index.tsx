@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { getCoinsList } from '../../api/api';
-import { Coin } from '../../types/types';
+import { CoinsList } from '../../types/types';
 import SearchIcon from '../icons/SearchIcon';
 import styles from './Search.module.scss';
 import Loader from '../Loader';
@@ -13,7 +13,7 @@ type SearchState = {
 };
 
 type SearchProps = {
-  updatedCoinsList: (loadedCoins: Coin[]) => void;
+  updatedCoinsList: (loadedCoins: CoinsList) => void;
 };
 
 class Search extends React.Component<SearchProps, SearchState> {
@@ -41,7 +41,7 @@ class Search extends React.Component<SearchProps, SearchState> {
     this.setState({ isLoading: false });
 
     if (loadedCoinsList) {
-      this.props.updatedCoinsList(loadedCoinsList.data.coins);
+      this.props.updatedCoinsList(loadedCoinsList);
     }
   }
 
@@ -51,7 +51,7 @@ class Search extends React.Component<SearchProps, SearchState> {
     this.setState({ isLoading: false });
 
     if (loadedCoinsList) {
-      this.props.updatedCoinsList(loadedCoinsList.data.coins);
+      this.props.updatedCoinsList(loadedCoinsList);
     }
 
     localStorage.setItem('searchValue', this.state.searchValue);

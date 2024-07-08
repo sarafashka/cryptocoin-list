@@ -1,5 +1,4 @@
 import React from 'react';
-import ErrorTest from '../ErrorTest';
 import styles from './Footer.module.scss';
 
 const { footer, footer__copyright } = styles;
@@ -20,7 +19,6 @@ const Footer: React.FC = () => {
             sarafashka
           </a>
         </div>
-        <ErrorTest />
       </section>
     </>
   );

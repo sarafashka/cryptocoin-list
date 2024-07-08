@@ -1,12 +1,10 @@
+import { COINS_OFFSET, COINS_LIMIT } from '../constants/constants';
 import { CoinDetailed, CoinsList } from '../types/types';
 
 const API_KEY = 'coinranking0e7711dc12205d9e181b6035e9e3c7503e649b8200b5117c';
 const BASE_URL = 'https://api.coinranking.com/v2';
 const GET_COINS = '/coins';
 const GET_COIN = '/coin';
-
-const COINS_OFFSET = 0;
-const COINS_LIMIT = 10;
 
 const options = {
   headers: {
