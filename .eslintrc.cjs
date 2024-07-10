@@ -24,5 +24,6 @@ module.exports = {
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/ban-ts-comment": "error",
+    "react-hooks/exhaustive-deps": 'off',
   },
 };

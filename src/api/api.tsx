@@ -1,4 +1,4 @@
-import { COINS_OFFSET, COINS_LIMIT } from '../constants/constants';
+import { COINS_LIMIT } from '../constants/constants';
 import { CoinDetailed, CoinsList } from '../types/types';
 
 const API_KEY = 'coinranking0e7711dc12205d9e181b6035e9e3c7503e649b8200b5117c';
@@ -13,11 +13,12 @@ const options = {
   },
 };
 
-export const getCoinsList = async (searchQuery?: string) => {
+export const getCoinsList = async (page: number, searchQuery?: string) => {
   let data: null | CoinsList = null;
+  const coinsOffset = (page - 1) * COINS_LIMIT;
   const urlRequest = searchQuery
-    ? `${BASE_URL}${GET_COINS}?offset=${COINS_OFFSET}&limit=${COINS_LIMIT}&search=${searchQuery}`
-    : `${BASE_URL}${GET_COINS}?offset=${COINS_OFFSET}&limit=${COINS_LIMIT}`;
+    ? `${BASE_URL}${GET_COINS}?offset=${coinsOffset}&limit=${COINS_LIMIT}&search=${searchQuery}`
+    : `${BASE_URL}${GET_COINS}?offset=${coinsOffset}&limit=${COINS_LIMIT}`;
   try {
     const response = await fetch(urlRequest, options);
     data = await response.json();
