@@ -1,7 +1,7 @@
 import React from 'react';
 import { Coin } from '../../types/types';
 import styles from './CoinTable.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const {
   coins,
@@ -18,6 +18,9 @@ type CoinTableProps = {
 };
 
 const CoinTable: React.FC<CoinTableProps> = ({ coinList }) => {
+  const location = useLocation();
+
+  const pageNumber = new URLSearchParams(location.search).get('page') || '1';
   return (
     <>
       <div className={coins}>
@@ -35,7 +38,9 @@ const CoinTable: React.FC<CoinTableProps> = ({ coinList }) => {
             {coinList.map((coin) => (
               <tr key={coin.uuid}>
                 <td className={coins__name}>
-                  <Link to={`/coins/${coin.uuid}`}>{coin.name}</Link>
+                  <Link to={`/coins/${coin.uuid}?page=${pageNumber}`}>
+                    {coin.name}
+                  </Link>
                 </td>
                 <td className={coins__symbol}>{coin.symbol}</td>
                 <td className={coins__price}>

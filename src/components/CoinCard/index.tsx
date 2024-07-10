@@ -9,6 +9,10 @@ import Loader from '../Loader';
 
 const {
   card,
+  card__name,
+  card__rank,
+  card__price,
+  card__symbol,
   card__icon,
   card__description,
   card__change,
@@ -67,6 +71,10 @@ const CoinCard: React.FC = () => {
     <>
       <div>{isLoading ? <Loader /> : ''}</div>
       <div className={card} ref={blockRef}>
+        <div className={card__name}>{coin?.name}</div>
+        <div className={card__symbol}>{coin?.symbol}</div>
+        <div className={card__price}>$ {Number(coin?.price).toFixed(7)}</div>
+        <div className={card__rank}>Rank {coin?.rank}</div>
         <div className={card__icon}>
           <img src={coin?.iconUrl} alt={coin?.name} width={50} height={50} />
         </div>

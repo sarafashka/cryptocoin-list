@@ -16,7 +16,7 @@ export interface Coin {
   contractAddresses: string[];
 }
 
-export interface CoinsList {
+export interface CoinsData {
   status: string;
   data: {
     stats: {

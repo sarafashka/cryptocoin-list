@@ -1,24 +1,28 @@
+@import '../../assets/styles/constants';
+@import '../../assets/styles/mixins';
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 2rem 0;
+  @include common-container;
 }
 
 .main {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 90vw;
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  gap: 3rem;
+}
+.aside {
+  padding: 1rem;
+  border-radius: 20px;
+  background-color: $base;
 }
 
 .coins {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 4rem;
-  &__list {
-    grid-column: span 2;
-  }
+  padding: 1rem;
 }
