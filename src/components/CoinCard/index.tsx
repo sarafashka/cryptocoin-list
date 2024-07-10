@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
 import styles from './CoinCard.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import AppRoutes from '../../constants/routes';
 import { getCoin } from '../../api/api';
 import { CoinDetailedInfo } from '../../types/types';
 import Loader from '../Loader';
@@ -48,13 +47,13 @@ const CoinCard: React.FC = () => {
         blockRef.current &&
         !blockRef.current.contains(event.target as Node)
       ) {
-        navigate(AppRoutes.HOME);
+        navigate(-1);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mouseup', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mouseup', handleClickOutside);
     };
   }, [navigate]);
 
