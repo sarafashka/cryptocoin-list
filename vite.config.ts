@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/',
-  // base: '/cryptocoin-list',
+  // base: '/',
+  base: '/cryptocoin-list',
   plugins: [react()],
 });
