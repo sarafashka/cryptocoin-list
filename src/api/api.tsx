@@ -1,5 +1,5 @@
 import { COINS_LIMIT } from '../constants/constants';
-import { CoinDetailed, CoinsList } from '../types/types';
+import { CoinDetailed, CoinsData } from '../types/types';
 
 const API_KEY = 'coinranking0e7711dc12205d9e181b6035e9e3c7503e649b8200b5117c';
 const BASE_URL = 'https://api.coinranking.com/v2';
@@ -14,7 +14,7 @@ const options = {
 };
 
 export const getCoinsList = async (page: number, searchQuery?: string) => {
-  let data: null | CoinsList = null;
+  let data: null | CoinsData = null;
   const coinsOffset = (page - 1) * COINS_LIMIT;
   const urlRequest = searchQuery
     ? `${BASE_URL}${GET_COINS}?offset=${coinsOffset}&limit=${COINS_LIMIT}&search=${searchQuery}`
