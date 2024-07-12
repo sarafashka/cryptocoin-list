@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Users from '../Users';
+import React from 'react';
 
 describe('User', () => {
   test('renders heading', async () => {

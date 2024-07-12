@@ -1,11 +1,14 @@
+/**@type {import('jest').Config} */
+
 const config = {
-  // collectCoverage: true,
-  // collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
-  // coverageDirectory: 'coverage',
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
+  coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'babel-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
