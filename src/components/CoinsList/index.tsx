@@ -2,6 +2,7 @@ import React from 'react';
 import { Coin } from '../../types/types';
 import styles from './CoinsList.module.scss';
 import { Link, useLocation } from 'react-router-dom';
+import AppRoutes from '../../constants/routes';
 
 const { coins, coins__name } = styles;
 
@@ -18,7 +19,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
       <div className={coins}>
         {coinsList.map((coin) => (
           <div key={coin.uuid} className={coins__name}>
-            <Link to={`/coins/${coin.uuid}?page=${pageNumber}`}>
+            <Link to={`${AppRoutes.HOME}coins/${coin.uuid}?page=${pageNumber}`}>
               {coin.name}
             </Link>
           </div>

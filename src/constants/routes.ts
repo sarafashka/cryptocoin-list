@@ -1,6 +1,6 @@
 enum AppRoutes {
-  HOME = '/',
-  COIN = '/coins/:coinID',
+  HOME = '/cryptocoin-list/',
+  COIN = 'coins/:coinId',
 }
 
 export default AppRoutes;
