@@ -43,20 +43,14 @@ const CoinsPage: React.FC = () => {
     setIsLoading(false);
 
     if (loadedCoins) setCoinsData(loadedCoins);
-    console.log('page', page);
-    console.log('loaded', loadedCoins);
     if (searchRequest) localStorage.setItem('searchCoin', searchRequest);
-  };
-
-  const handleClick = () => {
-    console.log('left panel', location);
   };
 
   return (
     <>
       <div className={app}>
         <main className={main}>
-          <aside className={aside} onClick={handleClick}>
+          <aside className={aside}>
             <Search
               updatedCoinsList={loadCoinsList}
               isDisabled={isLoading}

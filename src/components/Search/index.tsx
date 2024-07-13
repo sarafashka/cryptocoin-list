@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import SearchIcon from '../icons/SearchIcon';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import styles from './Search.module.scss';
 
 const { search, search__input, search__submit } = styles;
@@ -10,9 +11,10 @@ type SearchProps = {
 };
 
 const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
-  const [searchValue, setSearchValue] = useState(() => {
-    return localStorage.getItem('searchCoin') || '';
-  });
+  const [searchValue, setSearchValue] = useLocalStorage('searchCoin', '');
+  // const [searchValue, setSearchValue] = useState(() => {
+  //   return localStorage.getItem('searchCoin') || '';
+  // });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
