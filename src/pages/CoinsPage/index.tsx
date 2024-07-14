@@ -55,7 +55,7 @@ const CoinsPage: React.FC = () => {
               updatedCoinsList={loadCoinsList}
               isDisabled={isLoading}
             ></Search>
-            <div>{isLoading ? <Loader /> : ''}</div>
+            <div>{isLoading ? <Loader role="loader" /> : ''}</div>
             <section className={coins}>
               <div>
                 {coinsList && coinsList?.length > 0 ? (

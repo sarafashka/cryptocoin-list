@@ -61,12 +61,6 @@ exports[`Error404 component renders correctly 1`] = `
     <p>
       Page not found
     </p>
-    <button
-      class="message__button"
-      role="button"
-    >
-      Go to the main page
-    </button>
   </div>
 </div>
 `;
