@@ -4,7 +4,7 @@ const config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
+  collectCoverageFrom: ['src/**/*.tsx', '!src/main.tsx'],
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {

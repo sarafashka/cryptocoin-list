@@ -1,6 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import ErrorIcon from '../icons/ErrorBoundaryIcon';
 import styles from './ErrorBoundary.module.scss';
+import React from 'react';
 
 const { errorBoundary, message, content } = styles;
 
@@ -27,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className={errorBoundary}>
+        <div className={errorBoundary} role="errorBoundary">
           <ErrorIcon />
           <div className={message}>
             <p className={content}>

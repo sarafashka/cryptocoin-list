@@ -28,7 +28,7 @@ const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} role="form">
         <div className={search}>
           <input
             id="search"
