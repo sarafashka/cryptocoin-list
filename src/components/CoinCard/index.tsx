@@ -15,8 +15,6 @@ const {
   card__icon,
   card__description,
   card__change,
-  // card__high,
-  // card__low,
   card__close,
 } = styles;
 
@@ -57,18 +55,9 @@ const CoinCard: React.FC = () => {
     };
   }, [navigate]);
 
-  // const getNumberSparkline = () => {
-  //   return coin?.sparkline
-  //     .filter((item) => item !== null)
-  //     .map((item) => Number(item));
-  // };
-  // const sparklineOfNumbers = sparkline
-  //   .filter((item) => item !== null)
-  //   .map((item) => Number(item));
-
   return (
     <>
-      <div>{isLoading ? <Loader /> : ''}</div>
+      <div>{isLoading ? <Loader role="loader" /> : ''}</div>
       <div className={card} ref={blockRef}>
         <div className={card__name}>{coin?.name}</div>
         <div className={card__symbol}>{coin?.symbol}</div>
@@ -78,12 +67,6 @@ const CoinCard: React.FC = () => {
           <img src={coin?.iconUrl} alt={coin?.name} width={50} height={50} />
         </div>
         <div className={card__change}>{coin?.change}%</div>
-        {/* <div className={card__low}>
-      <span>min </span>${Math.min(...getNumberSparkline()).toFixed(2)}
-    </div>
-    <div className={card__high}>
-      <span>max </span>${Math.max(...sparklineOfNumbers()).toFixed(2)}
-    </div> */}
         <div className={card__description}>{coin?.description}</div>
         <button
           className={card__close}
