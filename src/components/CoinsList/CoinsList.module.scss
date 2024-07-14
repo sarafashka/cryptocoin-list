@@ -1,0 +1,23 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/constants';
+
+.coins {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__name {
+    @include H3;
+    text-align: left;
+
+    & a {
+      @include B1;
+      text-align: left;
+      text-decoration: none;
+      color: $text-primary;
+    }
+    & a:hover {
+      color: $accent;
+    }
+  }
+}

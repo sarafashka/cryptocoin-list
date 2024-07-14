@@ -1,0 +1,28 @@
+@import '../../assets/styles/constants';
+@import '../../assets/styles/mixins';
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 0;
+  @include common-container;
+}
+
+.main {
+  width: 90vw;
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  gap: 3rem;
+}
+.aside {
+  padding: 1rem;
+  border-radius: 20px;
+  background-color: $base;
+}
+
+.coins {
+  display: flex;
+  gap: 4rem;
+  padding: 1rem;
+}
