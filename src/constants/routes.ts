@@ -1,5 +1,5 @@
 enum AppRoutes {
-  HOME = '/cryptocoin-list/',
+  HOME = '/',
   COIN = 'coins/:coinId',
 }
 
