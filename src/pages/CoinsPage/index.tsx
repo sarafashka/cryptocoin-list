@@ -9,6 +9,7 @@ import { COINS_LIMIT } from '../../constants/constants';
 import { getCoinsList } from '../../api/api';
 import Loader from '../../components/Loader';
 import CoinsList from '../../components/CoinsList';
+import { coinsApi } from '../../redux';
 
 const { app, main, coins, aside } = styles;
 
@@ -19,9 +20,9 @@ const CoinsPage: React.FC = () => {
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   const [coinsData, setCoinsData] = useState<CoinsData>();
-  const [isLoading, setIsLoading] = useState(false);
-
   const coinsList = coinsData?.data.coins;
+
+  const { data, isLoading } = coinsApi.useGetCoinsQuery();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,18 +37,25 @@ const CoinsPage: React.FC = () => {
   };
 
   const loadCoinsList = async (searchRequest?: string | null) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const loadedCoins = searchRequest
       ? await getCoinsList(page, searchRequest)
       : await getCoinsList(page);
-    setIsLoading(false);
+    // setIsLoading(false);
 
     if (loadedCoins) setCoinsData(loadedCoins);
     if (searchRequest) localStorage.setItem('searchCoin', searchRequest);
   };
+  const clickHandler = () => {
+    console.log('data rtk', data);
+  };
 
   return (
     <>
+      <div>
+        <button onClick={clickHandler}>Data form rtk query</button>
+        <div>{data?.data.coins[0].name}</div>
+      </div>
       <div className={app}>
         <main className={main}>
           <aside className={aside}>
