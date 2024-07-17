@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
 import styles from './CoinCard.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCoin } from '../../api/api';
-import { CoinDetailedInfo } from '../../types/types';
+import { coinsApi } from '../../redux';
 import Loader from '../Loader';
 
 const {
@@ -19,25 +18,14 @@ const {
 } = styles;
 
 const CoinCard: React.FC = () => {
-  const { coinId } = useParams();
+  const { coinId } = useParams<{ coinId: string }>();
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [coin, setCoin] = useState<CoinDetailedInfo>();
 
   const blockRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (coinId) {
-        setIsLoading(true);
-        const coinData = await getCoin(coinId);
-        if (coinData) setCoin(coinData.data.coin);
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data, isLoading } = coinsApi.useGetCoinQuery(coinId || '', {
+    skip: !coinId,
+  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,29 +43,37 @@ const CoinCard: React.FC = () => {
     };
   }, [navigate]);
 
+  if (isLoading) {
+    return <Loader role="loader" />;
+  }
+
+  if (!data || !data.data) {
+    return <div>No data available</div>;
+  }
+
+  const { name, symbol, price, rank, iconUrl, change, description } =
+    data.data.coin;
+
   return (
-    <>
-      <div>{isLoading ? <Loader role="loader" /> : ''}</div>
-      <div className={card} ref={blockRef}>
-        <div className={card__name}>{coin?.name}</div>
-        <div className={card__symbol}>{coin?.symbol}</div>
-        <div className={card__price}>$ {Number(coin?.price).toFixed(7)}</div>
-        <div className={card__rank}>Rank {coin?.rank}</div>
-        <div className={card__icon}>
-          <img src={coin?.iconUrl} alt={coin?.name} width={50} height={50} />
-        </div>
-        <div className={card__change}>{coin?.change}%</div>
-        <div className={card__description}>{coin?.description}</div>
-        <button
-          className={card__close}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <img src={cancelClose} alt="close" width={30} height={30} />
-        </button>
+    <div className={card} ref={blockRef}>
+      <div className={card__name}>{name}</div>
+      <div className={card__symbol}>{symbol}</div>
+      <div className={card__price}>${Number(price).toFixed(7)}</div>
+      <div className={card__rank}>Rank {rank}</div>
+      <div className={card__icon}>
+        <img src={iconUrl} alt={name} width={50} height={50} />
       </div>
-    </>
+      <div className={card__change}>{change}%</div>
+      <div className={card__description}>{description}</div>
+      <button
+        className={card__close}
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <img src={cancelClose} alt="close" width={30} height={30} />
+      </button>
+    </div>
   );
 };
 

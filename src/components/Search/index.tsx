@@ -1,29 +1,28 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import SearchIcon from '../icons/SearchIcon';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 import styles from './Search.module.scss';
+import { SEARCH_VALUE_IN_LOCAL_STORAGE } from '../../constants/constants';
 
 const { search, search__input, search__submit } = styles;
 
 type SearchProps = {
-  updatedCoinsList: (searchRequest?: string) => Promise<void>;
+  updatedCoinsList: (searchRequest: string) => void;
   isDisabled: boolean;
 };
 
 const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
-  const [searchValue, setSearchValue] = useLocalStorage('searchCoin', '');
-  // const [searchValue, setSearchValue] = useState(() => {
-  //   return localStorage.getItem('searchCoin') || '';
-  // });
+  const [inputValue, setInputValue] = useState(() => {
+    return localStorage.getItem(SEARCH_VALUE_IN_LOCAL_STORAGE) || '';
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setSearchValue(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    updatedCoinsList(searchValue);
+    updatedCoinsList(inputValue);
   };
 
   return (
@@ -33,7 +32,7 @@ const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
           <input
             id="search"
             type="text"
-            value={searchValue}
+            value={inputValue}
             className={search__input}
             onChange={handleChange}
             placeholder="Search..."

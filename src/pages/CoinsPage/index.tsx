@@ -1,79 +1,64 @@
 import styles from './CoinsPage.module.scss';
-import React, { useEffect, useState } from 'react';
-import { CoinsData } from '../../types/types';
+import React from 'react';
 import Search from '../../components/Search';
 import Footer from '../../components/Footer';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
-import { COINS_LIMIT } from '../../constants/constants';
-import { getCoinsList } from '../../api/api';
+import {
+  COINS_LIMIT,
+  SEARCH_VALUE_IN_LOCAL_STORAGE,
+} from '../../constants/constants';
 import Loader from '../../components/Loader';
 import CoinsList from '../../components/CoinsList';
 import { coinsApi } from '../../redux';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const { app, main, coins, aside } = styles;
 
 const CoinsPage: React.FC = () => {
+  const [searchValue, setSearchValue] = useLocalStorage(
+    SEARCH_VALUE_IN_LOCAL_STORAGE,
+    ''
+  );
+
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
-
   const page = parseInt(searchParams.get('page') || '1', 10);
 
-  const [coinsData, setCoinsData] = useState<CoinsData>();
-  const coinsList = coinsData?.data.coins;
-
-  const { data, isLoading } = coinsApi.useGetCoinsQuery();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const savedSearch = localStorage.getItem('searchCoin');
-      await loadCoinsList(savedSearch);
-    };
-    fetchData();
-  }, [searchParams]);
+  const { data, isLoading } = coinsApi.useGetCoinsQuery({
+    page: page,
+    searchQuery: searchValue,
+  });
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
   };
 
-  const loadCoinsList = async (searchRequest?: string | null) => {
-    // setIsLoading(true);
-    const loadedCoins = searchRequest
-      ? await getCoinsList(page, searchRequest)
-      : await getCoinsList(page);
-    // setIsLoading(false);
-
-    if (loadedCoins) setCoinsData(loadedCoins);
-    if (searchRequest) localStorage.setItem('searchCoin', searchRequest);
-  };
-  const clickHandler = () => {
-    console.log('data rtk', data);
+  const updateSearchRequest = (searchRequest: string) => {
+    setSearchValue(searchRequest);
   };
 
   return (
     <>
-      <div>
-        <button onClick={clickHandler}>Data form rtk query</button>
-        <div>{data?.data.coins[0].name}</div>
-      </div>
       <div className={app}>
         <main className={main}>
           <aside className={aside}>
             <Search
-              updatedCoinsList={loadCoinsList}
+              updatedCoinsList={updateSearchRequest}
               isDisabled={isLoading}
             ></Search>
             <div>{isLoading ? <Loader role="loader" /> : ''}</div>
             <section className={coins}>
               <div>
-                {coinsList && coinsList?.length > 0 ? (
+                {data && data.data.coins.length > 0 ? (
                   <>
-                    <CoinsList coinsList={coinsList} />
+                    <CoinsList coinsList={data.data.coins} />
+
                     <Pagination
                       currentPage={page}
                       totalPages={
-                        coinsData?.data.stats.total
-                          ? Math.ceil(coinsData?.data.stats.total / COINS_LIMIT)
+                        data.data.stats.total
+                          ? Math.ceil(data.data.stats.total / COINS_LIMIT)
                           : 0
                       }
                       onPageChange={handlePageChange}
