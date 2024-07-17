@@ -1,0 +1,49 @@
+@import '../../assets/styles/constants';
+
+.checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+
+  & input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+      &:checked ~ .checkbox__mark {
+        background-image: $gradient-primary;
+       }
+      &:checked ~ .checkbox__mark:after {
+        display: block;
+       }
+   }
+
+   &__mark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background: #606062;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.30), 0px 1px 1px rgba(0, 0, 0, 5);
+      &::after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+   }
+ }
+
+ .checkbox .checkbox__mark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+ }
