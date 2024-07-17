@@ -10,6 +10,7 @@ import {
   removeAllCoins,
   removeSelectedCoin,
 } from '../../redux/coinsListSlice';
+import FlyoutMenu from '../FlyoutMenu';
 
 const { coin, coins, coin__name } = styles;
 
@@ -30,7 +31,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
       : dispatch(addSelectedCoin(id));
   };
 
-  const handleRemoveAllChecked = () => {
+  const removeAllChecked = () => {
     dispatch(removeAllCoins());
   };
 
@@ -52,7 +53,10 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
             </div>
           </div>
         ))}
-        <button onClick={handleRemoveAllChecked}>Remove all</button>
+        <FlyoutMenu
+          itemsNumber={selectedCoins.length}
+          unselect={removeAllChecked}
+        />
       </div>
     </>
   );

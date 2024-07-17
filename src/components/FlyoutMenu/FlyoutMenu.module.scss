@@ -1,0 +1,20 @@
+@import '../../assets/styles/mixins';
+
+.menu {
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  &__title {
+    grid-column: span 2;
+    &_count {
+
+    }
+  }
+
+  &__unselect {
+    @include transparent-btn;
+  }
+
+  &__download {
+    @include action-btn;
+  }
+}
