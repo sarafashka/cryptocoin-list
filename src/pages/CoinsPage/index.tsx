@@ -12,6 +12,9 @@ import Loader from '../../components/Loader';
 import CoinsList from '../../components/CoinsList';
 import { coinsApi } from '../../redux';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import FlyoutMenu from '../../components/FlyoutMenu';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
+import { removeAllCoins } from '../../redux/coinsListSlice';
 
 const { app, main, coins, aside } = styles;
 
@@ -25,6 +28,8 @@ const CoinsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   const page = parseInt(searchParams.get('page') || '1', 10);
 
+  const selectedCoins = useAppSelector((state) => state.coins.selectedCoins);
+  const dispatch = useAppDispatch();
   const { data, isLoading } = coinsApi.useGetCoinsQuery({
     page: page,
     searchQuery: searchValue,
@@ -36,6 +41,10 @@ const CoinsPage: React.FC = () => {
 
   const updateSearchRequest = (searchRequest: string) => {
     setSearchValue(searchRequest);
+  };
+
+  const removeAllChecked = () => {
+    dispatch(removeAllCoins());
   };
 
   return (
@@ -73,6 +82,12 @@ const CoinsPage: React.FC = () => {
           <div>
             <Outlet />
           </div>
+          {selectedCoins.length > 0 && (
+            <FlyoutMenu
+              itemsCount={selectedCoins.length}
+              unselect={removeAllChecked}
+            />
+          )}
         </main>
         <Footer />
       </div>

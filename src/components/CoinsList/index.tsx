@@ -53,10 +53,6 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
             </div>
           </div>
         ))}
-        <FlyoutMenu
-          itemsNumber={selectedCoins.length}
-          unselect={removeAllChecked}
-        />
       </div>
     </>
   );

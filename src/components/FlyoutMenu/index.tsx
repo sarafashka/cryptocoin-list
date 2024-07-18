@@ -4,15 +4,15 @@ const { menu, menu__title, menu__title_count, menu__unselect, menu__download } =
   styles;
 
 type FlyoutMenuProps = {
-  itemsNumber: number;
+  itemsCount: number;
   unselect: () => void;
 };
 
-const FlyoutMenu: React.FC<FlyoutMenuProps> = ({ itemsNumber, unselect }) => {
+const FlyoutMenu: React.FC<FlyoutMenuProps> = ({ itemsCount, unselect }) => {
   return (
     <div className={menu}>
       <div className={menu__title}>
-        <span className={menu__title_count}>{itemsNumber}</span> items are
+        <span className={menu__title_count}>{itemsCount}</span> items are
         selected
       </div>
       <button className={menu__unselect} onClick={unselect}>
