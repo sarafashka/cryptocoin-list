@@ -15,7 +15,6 @@ export const coinsApi = createApi({
   endpoints: (build) => ({
     getCoins: build.query<CoinsData, { page: number; searchQuery?: string }>({
       query: ({ page, searchQuery }) => {
-        console.log('rtk', searchQuery);
         const coinsOffset = (page - 1) * COINS_LIMIT;
         const urlRequest = searchQuery
           ? `${endpoints.GET_COINS}?offset=${coinsOffset}&limit=${COINS_LIMIT}&search=${searchQuery}`

@@ -1,3 +1,5 @@
 import { RootState } from '../store';
 
-export const selectCoinsList = (state: RootState) => state.coins;
+export const selectCoinsSelected = (state: RootState) => state.coinsSelected;
+
+export const selectCoinsOnPage = (state: RootState) => state.coinsOnPage;

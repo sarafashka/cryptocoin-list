@@ -27,22 +27,6 @@ const CoinCard: React.FC = () => {
     skip: !coinId,
   });
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        blockRef.current &&
-        !blockRef.current.contains(event.target as Node)
-      ) {
-        navigate(-1);
-      }
-    };
-
-    document.addEventListener('mouseup', handleClickOutside);
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside);
-    };
-  }, [navigate]);
-
   if (isLoading) {
     return <Loader role="loader" />;
   }

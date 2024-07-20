@@ -6,7 +6,7 @@ const { footer, footer__copyright } = styles;
 const Footer: React.FC = () => {
   return (
     <>
-      <section className={footer}>
+      <footer className={footer}>
         <div className={footer__copyright}>
           <div>
             ©<span>{new Date().getFullYear()}</span>
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             sarafashka
           </a>
         </div>
-      </section>
+      </footer>
     </>
   );
 };

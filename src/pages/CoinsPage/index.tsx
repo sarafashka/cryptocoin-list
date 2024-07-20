@@ -1,5 +1,5 @@
 import styles from './CoinsPage.module.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Search from '../../components/Search';
 import Footer from '../../components/Footer';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
@@ -14,7 +14,8 @@ import { coinsApi } from '../../redux';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import FlyoutMenu from '../../components/FlyoutMenu';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
-import { removeAllCoins } from '../../redux/coinsListSlice';
+import Header from '../../components/Header';
+import { setCoinsFromPage } from '../../redux/slices/coinsOnPageSlice';
 
 const { app, main, coins, aside } = styles;
 
@@ -28,12 +29,19 @@ const CoinsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   const page = parseInt(searchParams.get('page') || '1', 10);
 
-  const selectedCoins = useAppSelector((state) => state.coins.selectedCoins);
+  const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
+
   const dispatch = useAppDispatch();
   const { data, isLoading } = coinsApi.useGetCoinsQuery({
     page: page,
     searchQuery: searchValue,
   });
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setCoinsFromPage(data.data.coins));
+    }
+  }, [data, dispatch]);
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
@@ -43,12 +51,9 @@ const CoinsPage: React.FC = () => {
     setSearchValue(searchRequest);
   };
 
-  const removeAllChecked = () => {
-    dispatch(removeAllCoins());
-  };
-
   return (
     <>
+      <Header />
       <div className={app}>
         <main className={main}>
           <aside className={aside}>
@@ -82,12 +87,7 @@ const CoinsPage: React.FC = () => {
           <div>
             <Outlet />
           </div>
-          {selectedCoins.length > 0 && (
-            <FlyoutMenu
-              itemsCount={selectedCoins.length}
-              unselect={removeAllChecked}
-            />
-          )}
+          {selectedCoins.length > 0 && <FlyoutMenu />}
         </main>
         <Footer />
       </div>

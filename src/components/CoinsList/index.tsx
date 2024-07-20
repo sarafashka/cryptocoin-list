@@ -7,10 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import Checkbox from '../Checkbox';
 import {
   addSelectedCoin,
-  removeAllCoins,
   removeSelectedCoin,
-} from '../../redux/coinsListSlice';
-import FlyoutMenu from '../FlyoutMenu';
+} from '../../redux/slices/coinsSelectedSlice';
 
 const { coin, coins, coin__name } = styles;
 
@@ -23,16 +21,17 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
   const pageNumber = new URLSearchParams(location.search).get('page') || '1';
 
   const dispatch = useAppDispatch();
-  const selectedCoins = useAppSelector((state) => state.coins.selectedCoins);
+  const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
+  const coinsOnPage = useAppSelector((state) => state.coinsOnPage.coins);
 
   const handleCheckboxChange = (id: string, checked: boolean) => {
-    selectedCoins.includes(id)
-      ? dispatch(removeSelectedCoin(id))
-      : dispatch(addSelectedCoin(id));
-  };
-
-  const removeAllChecked = () => {
-    dispatch(removeAllCoins());
+    const isAlreadyChecked = selectedCoins.find((item) => item.uuid === id);
+    if (isAlreadyChecked) {
+      dispatch(removeSelectedCoin(id));
+    } else {
+      const checkedCoin = coinsOnPage.find((item) => item.uuid === id);
+      if (checkedCoin) dispatch(addSelectedCoin(checkedCoin));
+    }
   };
 
   return (
@@ -41,7 +40,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
         {coinsList.map((item) => (
           <div className={coin} key={item.uuid}>
             <Checkbox
-              checked={selectedCoins.includes(item.uuid)}
+              checked={!!selectedCoins.find((coin) => coin.uuid === item.uuid)}
               onChange={(checked) => handleCheckboxChange(item.uuid, checked)}
             />
             <div className={coin__name}>

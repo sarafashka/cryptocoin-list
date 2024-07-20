@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import coinsReducer from './coinsListSlice';
+import coinsSelectedReducer from './slices/coinsSelectedSlice';
+import coinsOnPageReducer from './slices/coinsOnPageSlice';
 import { coinsApi } from './coinsApi';
 
 export const store = configureStore({
   reducer: {
-    coins: coinsReducer,
+    coinsSelected: coinsSelectedReducer,
+    coinsOnPage: coinsOnPageReducer,
     [coinsApi.reducerPath]: coinsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
