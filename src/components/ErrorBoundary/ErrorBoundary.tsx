@@ -1,5 +1,5 @@
 import { Component, ErrorInfo } from 'react';
-import ErrorIcon from '../icons/ErrorBoundaryIcon';
+import ErrorIcon from './ErrorBoundaryIcon';
 import styles from './ErrorBoundary.module.scss';
 import { Props, State } from './ErrorBoundary.type';
 

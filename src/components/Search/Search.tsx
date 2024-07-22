@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import SearchIcon from '../icons/SearchIcon';
+import searchIcon from '../../assets/svg/magnifier-search.svg';
 import styles from './Search.module.scss';
 import { SEARCH_VALUE_IN_LOCAL_STORAGE } from '../../constants/constants';
 import { SearchProps } from './Search.type';
@@ -36,7 +36,7 @@ const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
             disabled={isDisabled}
           />
           <button type="submit" className={search__submit}>
-            <SearchIcon />
+            <img src={searchIcon} alt="search" width={30} height={30} />
           </button>
         </div>
       </form>
