@@ -4,6 +4,7 @@
 @mixin common-container {
   margin: 0 auto;
   max-width: 1280px;
+  padding: 0 1rem;
 
   @include mobile {
     width: 80vw;
@@ -33,7 +34,8 @@
 @mixin action-btn {
   background: $gradient-primary;
   padding: 20px 33px;
-  @include B2;
+  font-weight: 500;
+  color: #fff;
   border-radius: 10px;
   border: none;
   text-transform: capitalize;

@@ -53,8 +53,8 @@ const CoinsPage: React.FC = () => {
 
   return (
     <>
-      <Header />
-      <div className={app}>
+      <div className={`${app} container`}>
+        <Header />
         <main className={main}>
           <aside className={aside}>
             <Search

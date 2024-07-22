@@ -10,8 +10,8 @@
 }
 
 .main {
+  min-width: 80vw;
   position: relative;
-  // width: 90vw;
   display: grid;
   grid-template-columns: 20rem 1fr;
   gap: 3rem;
