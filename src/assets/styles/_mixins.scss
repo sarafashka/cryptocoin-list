@@ -60,7 +60,7 @@
   font-size: 85px;
   font-weight: 900;
   line-height: 130%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 22px;
@@ -71,7 +71,7 @@
   font-size: 50px;
   font-weight: 900;
   line-height: 130%;
-  color: $text-primary;
+  color: var(--text-primary)y;
 
   @include mobile {
     font-size: 20px;
@@ -82,7 +82,7 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 122%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 18px;
@@ -93,7 +93,7 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 150%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 16px;
@@ -113,7 +113,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 100%;
-  color: $text-primary;
+  color: var(--text-primary);
   @include mobile {
     font-size: 14px;
   }

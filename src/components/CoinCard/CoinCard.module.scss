@@ -9,7 +9,7 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto auto auto;
   gap: 10px;
-  background-color: $base;
+  background-color: var(--base);
   border: none;
   border-radius: 1rem;
   padding: 1rem;
@@ -17,10 +17,10 @@
     @include H4;
   }
   &__rank {
-    color: $text-primary;
+    color: var(--text-primary);
   }
   &__price {
-    color: $text-primary;
+    color: var(--text-primary);
   }
   &__symbol {
     @include H4;
@@ -45,6 +45,7 @@
   &__close {
     position: absolute;
     left: 90%;
+    top: 5%;
     background-color: transparent;
     border: none;
     outline: none;

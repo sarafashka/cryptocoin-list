@@ -3,7 +3,6 @@ import CoinsPage from '../../pages/CoinsPage';
 import Error404 from '../../pages/Error404/Error404';
 import CoinCard from '../CoinCard';
 import AppRoutes from '../../constants/routes';
-import React from 'react';
 
 const App = () => {
   const router = createBrowserRouter([

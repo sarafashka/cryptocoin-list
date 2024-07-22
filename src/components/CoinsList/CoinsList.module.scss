@@ -19,7 +19,7 @@
       @include B1;
       text-align: left;
       text-decoration: none;
-      color: $text-primary;
+      color: var(--text-primary);
     }
     & a:hover {
       color: $accent;
