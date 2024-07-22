@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Coin } from '../../types/types';
+import { Coin } from '../api/coinsApi.type';
 
 type Coins = {
   coins: Coin[];

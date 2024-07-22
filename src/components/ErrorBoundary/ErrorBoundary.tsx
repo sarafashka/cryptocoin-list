@@ -1,15 +1,9 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo } from 'react';
 import ErrorIcon from '../icons/ErrorBoundaryIcon';
 import styles from './ErrorBoundary.module.scss';
+import { Props, State } from './ErrorBoundary.type';
 
 const { errorBoundary, message, content } = styles;
-
-type Props = {
-  children?: ReactNode;
-};
-type State = {
-  hasError: boolean;
-};
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {

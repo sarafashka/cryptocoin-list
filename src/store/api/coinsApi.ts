@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CoinDetailed, CoinsData } from '../types/types';
-import { COINS_LIMIT } from '../constants/constants';
-import { API_KEY, endpoints } from '../constants/endpoints';
+import { CoinDetailed, CoinsData } from './coinsApi.type';
+import { COINS_LIMIT } from '../../constants/constants';
+import { API_KEY, endpoints } from '../../constants/endpoints';
 
 export const coinsApi = createApi({
   reducerPath: 'coinsApi',

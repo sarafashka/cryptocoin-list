@@ -2,7 +2,7 @@ import React from 'react';
 import { downloadCSV } from '../utils/downloadCSV';
 import styles from './FlyoutMenu.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
-import { removeAllCoins } from '../../redux/slices/coinsSelectedSlice';
+import { removeAllCoins } from '../../store/slices/coinsSelectedSlice';
 const { menu, menu__title, menu__title_count, menu__unselect, menu__download } =
   styles;
 

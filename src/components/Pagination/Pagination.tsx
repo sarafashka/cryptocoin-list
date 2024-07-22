@@ -1,13 +1,8 @@
 import React from 'react';
 import styles from './Pagination.module.scss';
+import { PaginationProps } from './Pagination.type';
 
 const { pagination, pagination__buttons, pagination__current } = styles;
-
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,

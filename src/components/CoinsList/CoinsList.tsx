@@ -1,5 +1,4 @@
 import React from 'react';
-import { Coin } from '../../types/types';
 import styles from './CoinsList.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import AppRoutes from '../../constants/routes';
@@ -8,13 +7,10 @@ import Checkbox from '../Checkbox';
 import {
   addSelectedCoin,
   removeSelectedCoin,
-} from '../../redux/slices/coinsSelectedSlice';
+} from '../../store/slices/coinsSelectedSlice';
+import { CoinTableProps } from './CoinsList.type';
 
 const { coin, coins, coin__name } = styles;
-
-type CoinTableProps = {
-  coinsList: Coin[];
-};
 
 const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
   const location = useLocation();

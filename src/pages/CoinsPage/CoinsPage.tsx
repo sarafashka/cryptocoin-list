@@ -10,12 +10,12 @@ import {
 } from '../../constants/constants';
 import Loader from '../../components/Loader';
 import CoinsList from '../../components/CoinsList';
-import { coinsApi } from '../../redux';
+import { coinsApi } from '../../store';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import FlyoutMenu from '../../components/FlyoutMenu';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import Header from '../../components/Header';
-import { setCoinsFromPage } from '../../redux/slices/coinsOnPageSlice';
+import { setCoinsFromPage } from '../../store/slices/coinsOnPageSlice';
 
 const { app, main, coins, aside } = styles;
 

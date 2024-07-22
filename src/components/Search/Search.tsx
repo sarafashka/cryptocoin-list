@@ -2,13 +2,9 @@ import React, { ChangeEvent, useState } from 'react';
 import SearchIcon from '../icons/SearchIcon';
 import styles from './Search.module.scss';
 import { SEARCH_VALUE_IN_LOCAL_STORAGE } from '../../constants/constants';
+import { SearchProps } from './Search.type';
 
 const { search, search__input, search__submit } = styles;
-
-type SearchProps = {
-  updatedCoinsList: (searchRequest: string) => void;
-  isDisabled: boolean;
-};
 
 const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
   const [inputValue, setInputValue] = useState(() => {

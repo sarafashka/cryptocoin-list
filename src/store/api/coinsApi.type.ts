@@ -84,6 +84,6 @@ export interface CoinDetailedInfo {
       value: string;
     },
   ];
-  contractAddresses: [];
+  contractAddresses: string[];
   tags: string[];
 }

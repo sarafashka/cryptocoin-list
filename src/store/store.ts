@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import coinsSelectedReducer from '../store/slices/coinsSelectedSlice';
-import coinsOnPageReducer from '../store/slices/coinsOnPageSlice';
-import { coinsApi } from '../store/api/coinsApi';
+import coinsSelectedReducer from './slices/coinsSelectedSlice';
+import coinsOnPageReducer from './slices/coinsOnPageSlice';
+import { coinsApi } from './api/coinsApi';
 
 export const store = configureStore({
   reducer: {

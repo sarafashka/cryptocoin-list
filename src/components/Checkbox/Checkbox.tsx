@@ -1,12 +1,8 @@
 import React from 'react';
 import styles from './Checkbox.module.scss';
+import { CheckboxProps } from './Checkbox.type';
 
 const { checkbox, checkbox__mark } = styles;
-
-type CheckboxProps = {
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-};
 
 const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
   return (

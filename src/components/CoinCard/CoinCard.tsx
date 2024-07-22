@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
 import styles from './CoinCard.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { coinsApi } from '../../redux';
+import { coinsApi } from '../../store';
 import Loader from '../Loader';
 
 const {

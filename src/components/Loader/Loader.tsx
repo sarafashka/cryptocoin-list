@@ -1,11 +1,8 @@
 import React from 'react';
 import styles from './Loader.module.scss';
+import { LoaderProps } from './Loader.type';
 
 const { overlay, loader } = styles;
-
-type LoaderProps = {
-  role?: string;
-};
 
 const Loader: React.FC<LoaderProps> = ({ role }) => {
   return (
