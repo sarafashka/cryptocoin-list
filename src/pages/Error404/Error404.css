@@ -81,6 +81,5 @@
   .message__box {
     position: relative;
     z-index: 2;
-    background-color: rgba(249, 248, 248, 0.7);
   }
 }

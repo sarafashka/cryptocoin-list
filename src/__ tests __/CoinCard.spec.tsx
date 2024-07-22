@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, act, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import CoinCard from '../components/CoinCard';
+import CoinCard from '../components/CoinCard/CoinCard';
 import * as api from '../api/api';
 
 jest.mock('../api/api');

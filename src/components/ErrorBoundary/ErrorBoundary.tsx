@@ -1,7 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import ErrorIcon from '../icons/ErrorBoundaryIcon';
 import styles from './ErrorBoundary.module.scss';
-import React from 'react';
 
 const { errorBoundary, message, content } = styles;
 

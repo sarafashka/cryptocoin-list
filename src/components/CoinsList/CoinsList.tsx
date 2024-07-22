@@ -24,7 +24,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
   const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
   const coinsOnPage = useAppSelector((state) => state.coinsOnPage.coins);
 
-  const handleCheckboxChange = (id: string, checked: boolean) => {
+  const handleCheckboxChange = (id: string) => {
     const isAlreadyChecked = selectedCoins.find((item) => item.uuid === id);
     if (isAlreadyChecked) {
       dispatch(removeSelectedCoin(id));
@@ -41,7 +41,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
           <div className={coin} key={item.uuid}>
             <Checkbox
               checked={!!selectedCoins.find((coin) => coin.uuid === item.uuid)}
-              onChange={(checked) => handleCheckboxChange(item.uuid, checked)}
+              onChange={() => handleCheckboxChange(item.uuid)}
             />
             <div className={coin__name}>
               <Link

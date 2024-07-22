@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ErrorBoundary from '../components//ErrorBoundary';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 describe('ErrorBoundary component', () => {
   it('render errorUI when an error occurs', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import CoinsList from '../components/CoinsList';
+import CoinsList from '../components/CoinsList/CoinsList';
 import { Coin } from '../types/types';
 import AppRoutes from '../constants/routes';
 

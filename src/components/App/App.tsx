@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CoinsPage from '../../pages/CoinsPage';
-import Error404 from '../../pages/Error404/Error404';
-import CoinCard from '../CoinCard';
+import Error404 from '../../pages/Error404';
+import CoinCard from '../CoinCard/CoinCard';
 import AppRoutes from '../../constants/routes';
 
 const App = () => {

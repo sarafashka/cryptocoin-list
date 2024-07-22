@@ -1,8 +1,8 @@
 import styles from './CoinsPage.module.scss';
 import React, { useEffect } from 'react';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import Search from '../../components/Search';
 import Footer from '../../components/Footer';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
 import {
   COINS_LIMIT,

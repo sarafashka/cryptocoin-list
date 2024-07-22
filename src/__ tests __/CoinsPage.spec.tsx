@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import CoinsPage from '../pages/CoinsPage';
+import CoinsPage from '../pages/CoinsPage/CoinsPage';
 
 const mockGetCoinsList = async () => {
   return {
