@@ -5,18 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { coinsApi } from '../../store';
 import Loader from '../Loader';
 
-const {
-  card,
-  card__name,
-  card__rank,
-  card__price,
-  card__symbol,
-  card__icon,
-  card__description,
-  card__change,
-  card__close,
-} = styles;
-
 const CoinCard: React.FC = () => {
   const { coinId } = useParams<{ coinId: string }>();
   const navigate = useNavigate();
@@ -39,18 +27,18 @@ const CoinCard: React.FC = () => {
     data.data.coin;
 
   return (
-    <div className={card} ref={blockRef}>
-      <div className={card__name}>{name}</div>
-      <div className={card__symbol}>{symbol}</div>
-      <div className={card__price}>${Number(price).toFixed(7)}</div>
-      <div className={card__rank}>Rank {rank}</div>
-      <div className={card__icon}>
+    <div className={styles.card} ref={blockRef}>
+      <div className={styles.card__name}>{name}</div>
+      <div className={styles.card__symbol}>{symbol}</div>
+      <div className={styles.card__price}>${Number(price).toFixed(7)}</div>
+      <div className={styles.card__rank}>Rank {rank}</div>
+      <div className={styles.card__icon}>
         <img src={iconUrl} alt={name} width={50} height={50} />
       </div>
-      <div className={card__change}>{change}%</div>
-      <div className={card__description}>{description}</div>
+      <div className={styles.card__change}>{change}%</div>
+      <div className={styles.card__description}>{description}</div>
       <button
-        className={card__close}
+        className={styles.card__close}
         onClick={() => {
           navigate(-1);
         }}
