@@ -1,6 +1,5 @@
-import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import Pagination from '../components/Pagination/Pagination';
+import Pagination from './Pagination';
 
 describe('Pagination component', () => {
   const onPageChangeMock = jest.fn();

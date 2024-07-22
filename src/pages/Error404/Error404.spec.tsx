@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Error404 from '../pages/Error404/Error404';
+import Error404 from './Error404';
 
 describe('Error404 component', () => {
   it('renders correctly', () => {

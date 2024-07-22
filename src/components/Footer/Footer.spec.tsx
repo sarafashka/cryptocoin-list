@@ -1,6 +1,5 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Footer from '../components/Footer/Footer';
+import Footer from './Footer';
 
 test('link opens the correct URL', () => {
   render(<Footer />);

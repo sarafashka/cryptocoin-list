@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Search from '../components/Search/Search';
+import Search from './Search';
 
 describe('Search Component', () => {
   const mockUpdatedCoinsList = jest.fn();

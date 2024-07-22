@@ -1,9 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import CoinsList from '../components/CoinsList/CoinsList';
-import { Coin } from '../types/types';
-import AppRoutes from '../constants/routes';
+import CoinsList from './CoinsList';
+import AppRoutes from '../../constants/routes';
+import { Coin } from '../../store/api/coinsApi.type';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
