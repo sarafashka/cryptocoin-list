@@ -16,6 +16,7 @@ import FlyoutMenu from '../../components/FlyoutMenu';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import Header from '../../components/Header';
 import { setCoinsFromPage } from '../../store/slices/coinsOnPageSlice';
+import { getTotalPagesNumber } from '../../utils/getTotalPagesNumber ';
 
 const { app, main, coins, aside } = styles;
 
@@ -70,11 +71,10 @@ const CoinsPage: React.FC = () => {
 
                     <Pagination
                       currentPage={page}
-                      totalPages={
-                        data.data.stats.total
-                          ? Math.ceil(data.data.stats.total / COINS_LIMIT)
-                          : 0
-                      }
+                      totalPages={getTotalPagesNumber(
+                        data.data.stats.total,
+                        COINS_LIMIT
+                      )}
                       onPageChange={handlePageChange}
                     />
                   </>

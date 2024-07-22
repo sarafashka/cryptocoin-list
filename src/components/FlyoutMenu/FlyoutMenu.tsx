@@ -1,5 +1,5 @@
 import React from 'react';
-import { downloadCSV } from '../utils/downloadCSV';
+import { downloadCSV } from '../../utils/downloadCSV';
 import styles from './FlyoutMenu.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import { removeAllCoins } from '../../store/slices/coinsSelectedSlice';
