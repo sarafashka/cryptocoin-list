@@ -34,6 +34,13 @@
     grid-column: 2 / 3;
     grid-row: 1 / 3;
     @include action-btn;
+
+    & a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+    }
+
   }
 }
 
