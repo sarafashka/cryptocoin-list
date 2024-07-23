@@ -1,21 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export const useLocalStorage = (
-  key: string,
-  initial: string = ''
-): [string, React.Dispatch<React.SetStateAction<string>>] => {
+export const useLocalStorage = (key: string, initial: string) => {
   const [value, setValue] = useState<string>(() => {
     const storedValue = localStorage.getItem(key);
     return storedValue !== null ? storedValue : initial;
   });
+  const setStoredValue = (value: string) => {
+    setValue(value);
+    localStorage.setItem(key, value);
+  };
 
-  useEffect(() => {
-    return () => {
-      if (value) {
-        localStorage.setItem(key, value);
-      }
-    };
-  }, []);
-
-  return [value, setValue];
+  return [value, setStoredValue] as const;
 };

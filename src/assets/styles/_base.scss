@@ -6,20 +6,31 @@
   font-size: $font-size;
   line-height: $line-height;
   font-weight: 400;
-  color: $text-secondary;
+  color: var(--text-secondary);
+}
+
+#root {
+  max-height: 100vh;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  background-color: $background-primary;
-  color: $text-secondary;
   align-items: center;
   min-height: 100vh;
+  background-color: var(--background-primary);
 }
 
-#root {
-  max-height: 100vh;
+body.light {
+  --background-primary: var(--background-primary-light);
+  --text-primary: var(--text-primary-light);
+  --base: var(--base-light);
+}
+
+body.dark {
+  --background-primary: var(--background-primary-dark);
+  --text-primary: var(--text-primary-dark);
+  --base: var(--base-dark);
 }
 
 h1 {

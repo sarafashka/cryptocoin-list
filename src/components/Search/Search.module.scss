@@ -8,13 +8,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  background: $base;
+  background: var(--base);
   border: 2px solid $accent;
-  border-radius: 50px;
+  border-radius: 10px;
 
   &__submit {
     position: absolute;
-    left: 10rem;
+    left: 10.5rem;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
@@ -39,7 +39,7 @@
     border: none;
     background: none;
     outline: none;
-    color: $text-primary;
+    color: var(--text-primary);
     font-size: 16px;
     padding: 1rem;
   }

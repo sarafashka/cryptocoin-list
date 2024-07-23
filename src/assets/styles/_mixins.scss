@@ -4,6 +4,7 @@
 @mixin common-container {
   margin: 0 auto;
   max-width: 1280px;
+  padding: 0 1rem;
 
   @include mobile {
     width: 80vw;
@@ -33,7 +34,8 @@
 @mixin action-btn {
   background: $gradient-primary;
   padding: 20px 33px;
-  @include B2;
+  font-weight: 500;
+  color: #fff;
   border-radius: 10px;
   border: none;
   text-transform: capitalize;
@@ -45,13 +47,22 @@
   }
 }
 
+@mixin transparent-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    color: $accent;
+  }
+}
+
 /* Fonts */
 
 @mixin H1 {
   font-size: 85px;
   font-weight: 900;
   line-height: 130%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 22px;
@@ -62,7 +73,7 @@
   font-size: 50px;
   font-weight: 900;
   line-height: 130%;
-  color: $text-primary;
+  color: var(--text-primary)y;
 
   @include mobile {
     font-size: 20px;
@@ -73,7 +84,7 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 122%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 18px;
@@ -84,7 +95,7 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 150%;
-  color: $text-primary;
+  color: var(--text-primary);
 
   @include mobile {
     font-size: 16px;
@@ -104,7 +115,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 100%;
-  color: $text-primary;
+  color: var(--text-primary);
   @include mobile {
     font-size: 14px;
   }

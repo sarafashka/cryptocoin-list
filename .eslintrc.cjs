@@ -22,9 +22,9 @@ module.exports = {
     "comma-dangle": ["error", "only-multiline"],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/ban-ts-comment": "error",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-var-requires": "error",
+    "react-hooks/exhaustive-deps": "error",
     "jest/no-focused-tests": "off",
   },
 };
