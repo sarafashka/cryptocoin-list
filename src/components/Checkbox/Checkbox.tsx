@@ -10,6 +10,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
       <input
         checked={checked}
         type="checkbox"
+        role="checkbox"
         onChange={(e) => onChange(e.target.checked)}
       />
       <div className={checkbox__mark}></div>

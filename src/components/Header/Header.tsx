@@ -28,6 +28,7 @@ const Header: React.FC = () => {
               onChange={toggleTheme}
               type="checkbox"
               className={styles.toggle__checkbox}
+              role="checkbox"
             />
             <span className={styles.toggle__slider}></span>
           </label>
