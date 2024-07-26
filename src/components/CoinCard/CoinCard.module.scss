@@ -1,0 +1,53 @@
+@import '../../assets/styles/constants';
+@import '../../assets/styles/mixins';
+
+.card {
+  flex: 2;
+  min-width: 30rem;
+  position: relative;
+  display: grid;
+  grid-template: auto auto auto / repeat(2, 1fr);
+  gap: 10px;
+  background-color: var(--base);
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem;
+  &__name {
+    @include H4;
+  }
+  &__rank {
+    color: var(--text-primary);
+  }
+  &__price {
+    color: var(--text-primary);
+  }
+  &__symbol {
+    @include H4;
+    color: $accent;
+  }
+  &__icon {
+    background-color: transparent;
+  }
+  &__change {
+    @include H4;
+    color: $accent;
+    align-self: center;
+  }
+  &__description {
+    grid-column: 1 / 3;
+    justify-self: center;
+  }
+  &__high,
+  &__low {
+    @include H3;
+  }
+  &__close {
+    position: absolute;
+    left: 90%;
+    top: 5%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}
