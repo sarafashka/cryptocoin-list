@@ -1,72 +1,165 @@
-import { fireEvent, render, act } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 import CoinCard from './CoinCard';
+import { coinsApi } from '../../store';
 
-// jest.mock('../api/api');
-// const mockCoinData = {
-//   uuid: '1',
-//   name: 'Bitcoin',
-//   symbol: 'BTC',
-//   price: '35000',
-//   rank: 1,
-//   iconUrl: 'https://example.com/bitcoin-icon.png',
-//   change: '5',
-//   description: 'This is a cryptocurrency.',
-// };
+jest.mock('../../store', () => {
+  const originalModule = jest.requireActual('../../store');
+  return {
+    ...originalModule,
+    coinsApi: {
+      useGetCoinQuery: jest.fn(),
+    },
+  };
+});
 
+import { useNavigate } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
 }));
 
-describe('CoinCard component', () => {
-  it.todo('displays detailed coin information when loaded');
-  //  async () => {
-  //   (api.getCoin as jest.Mock).mockResolvedValueOnce({
-  //     data: { coin: mockCoinData },
-  //   });
+describe('CoinCard', () => {
+  beforeEach(() => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockClear();
+  });
 
-  //   await act(async () => {
-  //     render(
-  //       <MemoryRouter initialEntries={['/coins/1']}>
-  //         <Routes>
-  //           <Route path="/coins/:coinId" element={<CoinCard />} />
-  //         </Routes>
-  //       </MemoryRouter>
-  //     );
-  //   });
+  test('renders loading state', () => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+    });
 
-  //   await act(async () => {
-  //     await new Promise((resolve) => setTimeout(resolve, 0));
-  //   });
+    render(
+      <Provider store={store}>
+        <Router>
+          <CoinCard />
+        </Router>
+      </Provider>
+    );
 
-  //   expect(screen.getByText(/Bitcoin/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/BTC/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Rank 1/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/\$ 35000.0000000/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/5%/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/This is a cryptocurrency./i)).toBeInTheDocument();
-  // });
-  it('closes the component when close button is clicked', async () => {
+    expect(screen.getByRole('loader')).toBeInTheDocument();
+  });
+
+  test('renders no data available', async () => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
+      data: null,
+      isLoading: false,
+    });
+
+    render(
+      <Provider store={store}>
+        <Router>
+          <CoinCard />
+        </Router>
+      </Provider>
+    );
+
+    expect(await screen.findByText('No data available')).toBeInTheDocument();
+  });
+
+  test('renders CoinCard with data', async () => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
+      data: {
+        data: {
+          coin: {
+            name: 'Bitcoin',
+            symbol: 'BTC',
+            price: '30000',
+            rank: '1',
+            iconUrl: 'https://example.com/bitcoin-icon.png',
+            change: '2.5',
+            description: 'Bitcoin is a cryptocurrency.',
+          },
+        },
+      },
+      isLoading: false,
+    });
+
+    render(
+      <Provider store={store}>
+        <Router>
+          <CoinCard />
+        </Router>
+      </Provider>
+    );
+
+    expect(await screen.findByText('Bitcoin')).toBeInTheDocument();
+    expect(screen.getByText('BTC')).toBeInTheDocument();
+    expect(screen.getByText('$30000.0000000')).toBeInTheDocument();
+    expect(screen.getByText('Rank 1')).toBeInTheDocument();
+    expect(screen.getByAltText('Bitcoin')).toBeInTheDocument();
+    expect(screen.getByText('2.5%')).toBeInTheDocument();
+    expect(
+      screen.getByText('Bitcoin is a cryptocurrency.')
+    ).toBeInTheDocument();
+  });
+
+  test('navigates back when close button is clicked', () => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
+      data: {
+        data: {
+          coin: {
+            name: 'Bitcoin',
+            symbol: 'BTC',
+            price: '30000',
+            rank: '1',
+            iconUrl: 'https://example.com/bitcoin-icon.png',
+            change: '2.5',
+            description: 'Bitcoin is a cryptocurrency.',
+          },
+        },
+      },
+      isLoading: false,
+    });
     const navigate = jest.fn();
     (useNavigate as jest.Mock).mockReturnValue(navigate);
-
-    const { getByAltText } = render(
-      <MemoryRouter initialEntries={['/coins/1']}>
-        <Routes>
-          <Route path="/coins/:coinId" element={<CoinCard />} />
-        </Routes>
-      </MemoryRouter>
+    render(
+      <Provider store={store}>
+        <Router>
+          <CoinCard />
+        </Router>
+      </Provider>
     );
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
+
+    fireEvent.click(screen.getByAltText('close'));
+
+    expect(navigate).toHaveBeenCalledWith(-1);
+  });
+
+  test('matches snapshot', async () => {
+    (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
+      data: {
+        data: {
+          coin: {
+            name: 'Bitcoin',
+            symbol: 'BTC',
+            price: '30000',
+            rank: '1',
+            iconUrl: 'https://example.com/bitcoin-icon.png',
+            change: '2.5',
+            description: 'Bitcoin is a cryptocurrency.',
+          },
+        },
+      },
+      isLoading: false,
     });
 
-    const closeButton = getByAltText('close');
-    act(() => {
-      fireEvent.click(closeButton);
+    const { asFragment } = render(
+      <Provider store={store}>
+        <Router>
+          <CoinCard />
+        </Router>
+      </Provider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
     });
-    expect(navigate).toHaveBeenCalledWith(-1);
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });

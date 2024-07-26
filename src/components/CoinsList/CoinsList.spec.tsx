@@ -1,98 +1,139 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import CoinsList from './CoinsList';
-import AppRoutes from '../../constants/routes';
+import {
+  addSelectedCoin,
+  removeSelectedCoin,
+} from '../../store/slices/coinsSelectedSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
+import { useLocation } from 'react-router-dom';
 import { Coin } from '../../store/api/coinsApi.type';
 
+jest.mock('../../hooks/reduxTypedHooks');
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useLocation: () => ({
-    search: '?page=1',
-  }),
+  useLocation: jest.fn(),
 }));
 
-const mockCoinsList: Coin[] = [
+const mockDispatch = jest.fn();
+const mockUseAppSelector = useAppSelector as jest.Mock;
+const mockUseAppDispatch = useAppDispatch as jest.Mock;
+const mockUseLocation = useLocation as jest.Mock;
+
+const coinsList: Coin[] = [
   {
     uuid: '1',
+    symbol: 'BTC',
+    color: '#f7931a',
     name: 'Bitcoin',
-    symbol: '',
-    color: '',
-    iconUrl: '',
-    marketCap: '',
-    price: '',
-    listedAt: 0,
-    change: '',
-    rank: '',
-    sparkline: [],
-    coinrankingUrl: '',
-    '24hVolume': '',
-    btcPrice: '',
+    iconUrl: 'https://example.com/bitcoin-icon.png',
+    marketCap: '600000000000',
+    price: '30000',
+    listedAt: 1234567890,
+    change: '2.5',
+    rank: '1',
+    sparkline: ['30000', '31000', '32000'],
+    coinrankingUrl: 'https://example.com/bitcoin',
+    '24hVolume': '2000000000',
+    btcPrice: '60000',
     contractAddresses: [],
   },
   {
     uuid: '2',
+    symbol: 'ETH',
+    color: '#3c3c3d',
     name: 'Ethereum',
-    symbol: '',
-    color: '',
-    iconUrl: '',
-    marketCap: '',
-    price: '',
-    listedAt: 0,
-    change: '',
-    rank: '',
-    sparkline: [],
-    coinrankingUrl: '',
-    '24hVolume': '',
-    btcPrice: '',
-    contractAddresses: [],
-  },
-  {
-    uuid: '3',
-    name: 'Ripple',
-    symbol: '',
-    color: '',
-    iconUrl: '',
-    marketCap: '',
-    price: '',
-    listedAt: 0,
-    change: '',
-    rank: '',
-    sparkline: [],
-    coinrankingUrl: '',
-    '24hVolume': '',
-    btcPrice: '',
+    iconUrl: 'https://example.com/ethereum-icon.png',
+    marketCap: '200000000000',
+    price: '2000',
+    listedAt: 1234567890,
+    change: '1.5',
+    rank: '2',
+    sparkline: ['2000', '2100', '2200'],
+    coinrankingUrl: 'https://example.com/ethereum',
+    '24hVolume': '1000000000',
+    btcPrice: '4000',
     contractAddresses: [],
   },
 ];
 
-describe('CoinsList Component', () => {
+describe('CoinsList', () => {
   beforeEach(() => {
+    mockUseAppDispatch.mockReturnValue(mockDispatch);
+    mockUseAppSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        coinsSelected: { coins: [] },
+        coinsOnPage: { coins: coinsList },
+      })
+    );
+    mockUseLocation.mockReturnValue({ search: '?page=1' } as unknown);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders coins list with checkboxes and links', () => {
     render(
       <Router>
-        <CoinsList coinsList={mockCoinsList} />
+        <CoinsList coinsList={coinsList} />
       </Router>
     );
-  });
 
-  test('renders the relevant card data', () => {
-    mockCoinsList.forEach((coin) => {
-      expect(screen.getByText(coin.name)).toBeInTheDocument();
-    });
-  });
+    expect(screen.getByText('Bitcoin')).toBeInTheDocument();
+    expect(screen.getByText('Ethereum')).toBeInTheDocument();
 
-  test('clicking on a card opens a detailed card component', () => {
+    const bitcoinCheckbox = screen.getByTestId('checkbox-1');
+    const ethereumCheckbox = screen.getByTestId('checkbox-2');
+
+    expect(bitcoinCheckbox).not.toBeChecked();
+    expect(ethereumCheckbox).not.toBeChecked();
+
     const bitcoinLink = screen.getByText('Bitcoin').closest('a');
-    expect(bitcoinLink).toHaveAttribute(
-      'href',
-      `${AppRoutes.HOME}coins/1?page=1`
+    const ethereumLink = screen.getByText('Ethereum').closest('a');
+
+    expect(bitcoinLink).toHaveAttribute('href', '/coins/1?page=1');
+    expect(ethereumLink).toHaveAttribute('href', '/coins/2?page=1');
+  });
+
+  test('dispatches addSelectedCoin when checkbox is checked', () => {
+    mockUseAppSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        coinsSelected: { coins: [] },
+        coinsOnPage: { coins: coinsList },
+      })
     );
 
-    if (bitcoinLink) {
-      fireEvent.click(bitcoinLink);
-    }
+    render(
+      <Router>
+        <CoinsList coinsList={coinsList} />
+      </Router>
+    );
+
+    const ethereumCheckbox = screen.getByTestId('checkbox-2');
+    fireEvent.click(ethereumCheckbox);
+
+    expect(mockDispatch).toHaveBeenCalledWith(addSelectedCoin(coinsList[1]));
   });
-  test('renders the specified number of cards', () => {
-    const cards = screen.getAllByText(/Bitcoin|Ethereum|Ripple/);
-    expect(cards).toHaveLength(mockCoinsList.length);
+
+  test('dispatches removeSelectedCoin when checkbox is unchecked', () => {
+    mockUseAppSelector.mockImplementation((selectorFn) =>
+      selectorFn({
+        coinsSelected: { coins: [coinsList[0]] },
+        coinsOnPage: { coins: coinsList },
+      })
+    );
+
+    render(
+      <Router>
+        <CoinsList coinsList={coinsList} />
+      </Router>
+    );
+
+    const bitcoinCheckbox = screen.getByTestId('checkbox-1');
+    fireEvent.click(bitcoinCheckbox);
+
+    expect(mockDispatch).toHaveBeenCalledWith(removeSelectedCoin('1'));
   });
 });

@@ -38,6 +38,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
             <Checkbox
               checked={!!selectedCoins.find((coin) => coin.uuid === item.uuid)}
               onChange={() => handleCheckboxChange(item.uuid)}
+              id={`checkbox-${item.uuid}`}
             />
             <div className={coin__name}>
               <Link

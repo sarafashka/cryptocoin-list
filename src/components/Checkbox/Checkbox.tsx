@@ -4,14 +4,15 @@ import { CheckboxProps } from './Checkbox.type';
 
 const { checkbox, checkbox__mark } = styles;
 
-const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
+const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, id }) => {
   return (
-    <label className={checkbox}>
+    <label className={checkbox} data-testid={id}>
       <input
         checked={checked}
         type="checkbox"
         role="checkbox"
         onChange={(e) => onChange(e.target.checked)}
+        // id={id}
       />
       <div className={checkbox__mark}></div>
     </label>
