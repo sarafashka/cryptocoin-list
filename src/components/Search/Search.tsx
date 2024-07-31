@@ -1,18 +1,15 @@
 import React, { ChangeEvent, useState } from 'react';
 import searchIcon from '../../../public/svg/magnifier-search.svg';
-// import searchIcon from '../../assets/svg/magnifier-search.svg';
 import styles from './Search.module.scss';
-import { SEARCH_VALUE_IN_LOCAL_STORAGE } from '../../constants/constants';
 import { SearchProps } from './Search.type';
+import { useRouter } from 'next/router';
 
-const { search, search__input, search__submit } = styles;
+const { search__block, search__input, search__submit } = styles;
 
 const Search: React.FC<SearchProps> = ({ isDisabled }) => {
-  const [inputValue, setInputValue] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(SEARCH_VALUE_IN_LOCAL_STORAGE) || '';
-    }
-  });
+  const router = useRouter();
+  const { search } = router.query;
+  const [inputValue, setInputValue] = useState(search);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -21,13 +18,23 @@ const Search: React.FC<SearchProps> = ({ isDisabled }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // updatedCoinsList(inputValue);
+    if (router.pathname === '/') {
+      if (inputValue) {
+        router.push({
+          query: { page: '1', search: inputValue },
+        });
+      } else {
+        router.push({
+          query: { page: '1' },
+        });
+      }
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} role="form">
-        <div className={search}>
+        <div className={search__block}>
           <input
             id="search"
             type="text"

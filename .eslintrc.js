@@ -26,5 +26,6 @@ module.exports = {
     "@typescript-eslint/no-var-requires": "error",
     "react-hooks/exhaustive-deps": "error",
     "jest/no-focused-tests": "off",
+    "react-refresh/only-export-components": "off",
   },
 };

@@ -1,16 +1,18 @@
 @import '../../assets/styles/constants';
 
 .search {
-  position: relative;
-  max-width: 14rem;
-  display: flex;
-  margin-bottom: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  background: var(--base);
-  border: 2px solid $accent;
-  border-radius: 10px;
+  &__block {
+    position: relative;
+    max-width: 14rem;
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: var(--base);
+    border: 2px solid $accent;
+    border-radius: 10px;
+  }
 
   &__submit {
     position: absolute;
