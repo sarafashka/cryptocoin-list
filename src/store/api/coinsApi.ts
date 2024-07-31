@@ -27,3 +27,5 @@ export const coinsApi = createApi({
     }),
   }),
 });
+
+export const { getCoins, getCoin } = coinsApi.endpoints;

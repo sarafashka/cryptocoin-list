@@ -7,6 +7,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "plugins": [{ "name": "next" }],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -16,14 +17,17 @@
     "moduleDetection": "force",
     "noEmit": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
 
     /* Linting */
     "strict": true,
-    
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "exclude": ["./node_modules"]
 }

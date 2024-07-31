@@ -1,3 +1,18 @@
+export interface CoinsData {
+  status: string;
+  data: {
+    stats: {
+      total: number;
+      totalCoins: number;
+      totalMarkets: number;
+      totalExchanges: number;
+      totalMarketCap: string;
+      total24hVolume: string;
+    };
+    coins: Coin[];
+  };
+}
+
 export interface Coin {
   uuid: string;
   symbol: string;
@@ -14,21 +29,6 @@ export interface Coin {
   '24hVolume': string;
   btcPrice: string;
   contractAddresses: string[];
-}
-
-export interface CoinsData {
-  status: string;
-  data: {
-    stats: {
-      total: number;
-      totalCoins: number;
-      totalMarkets: number;
-      totalExchanges: number;
-      totalMarketCap: string;
-      total24hVolume: string;
-    };
-    coins: Coin[];
-  };
 }
 
 export interface CoinDetailed {

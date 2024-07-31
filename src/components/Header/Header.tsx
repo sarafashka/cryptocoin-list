@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styles from './Header.module.scss';
-import logo from '../../assets/img/logo.png';
+import logo from '../../../public/logo.svg';
+// import logo from '../../assets/img/logo.png';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 const Header: React.FC = () => {
@@ -18,7 +19,7 @@ const Header: React.FC = () => {
     <>
       <header className={styles.header}>
         <div className={styles.header__logo}>
-          <img src={logo} alt="logo" />
+          <img src={logo.src} alt="logo" />
         </div>
         <div className={styles.header__title}>Cryptocoin Flare</div>
         <div className={styles.toggle}>

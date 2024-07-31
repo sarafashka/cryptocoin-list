@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CoinsList.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
 import AppRoutes from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import Checkbox from '../Checkbox';
@@ -13,9 +13,9 @@ import { CoinTableProps } from './CoinsList.type';
 const { coin, coins, coin__name } = styles;
 
 const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
-  const location = useLocation();
-  const pageNumber = new URLSearchParams(location.search).get('page') || '1';
-
+  // const location = useLocation();
+  // const pageNumber = new URLSearchParams(location.search).get('page') || '1';
+  const pageNumber = 1;
   const dispatch = useAppDispatch();
   const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
   const coinsOnPage = useAppSelector((state) => state.coinsOnPage.coins);
@@ -42,7 +42,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
             />
             <div className={coin__name}>
               <Link
-                to={`${AppRoutes.HOME}coins/${item.uuid}?page=${pageNumber}`}
+                href={`${AppRoutes.HOME}coins/${item.uuid}?page=${pageNumber}`}
               >
                 {item.name}
               </Link>

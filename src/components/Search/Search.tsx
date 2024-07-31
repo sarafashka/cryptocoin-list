@@ -1,14 +1,17 @@
 import React, { ChangeEvent, useState } from 'react';
-import searchIcon from '../../assets/svg/magnifier-search.svg';
+import searchIcon from '../../../public/svg/magnifier-search.svg';
+// import searchIcon from '../../assets/svg/magnifier-search.svg';
 import styles from './Search.module.scss';
 import { SEARCH_VALUE_IN_LOCAL_STORAGE } from '../../constants/constants';
 import { SearchProps } from './Search.type';
 
 const { search, search__input, search__submit } = styles;
 
-const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
+const Search: React.FC<SearchProps> = ({ isDisabled }) => {
   const [inputValue, setInputValue] = useState(() => {
-    return localStorage.getItem(SEARCH_VALUE_IN_LOCAL_STORAGE) || '';
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(SEARCH_VALUE_IN_LOCAL_STORAGE) || '';
+    }
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +21,7 @@ const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    updatedCoinsList(inputValue);
+    // updatedCoinsList(inputValue);
   };
 
   return (
@@ -36,7 +39,7 @@ const Search: React.FC<SearchProps> = ({ updatedCoinsList, isDisabled }) => {
             disabled={isDisabled}
           />
           <button type="submit" className={search__submit}>
-            <img src={searchIcon} alt="search" width={30} height={30} />
+            <img src={searchIcon.src} alt="search" width={30} height={30} />
           </button>
         </div>
       </form>

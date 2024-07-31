@@ -1,4 +1,4 @@
 export type SearchProps = {
-  updatedCoinsList: (searchRequest: string) => void;
+  //updatedCoinsList: (searchRequest: string) => void;
   isDisabled: boolean;
 };

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
+import cancelClose from '../../../public/svg/cross_cancel_icon.svg';
+// import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
 import styles from './CoinCard.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { coinsApi } from '../../store';
@@ -43,7 +44,7 @@ const CoinCard: React.FC = () => {
           navigate(-1);
         }}
       >
-        <img src={cancelClose} alt="close" width={30} height={30} />
+        <img src={cancelClose.src} alt="close" width={30} height={30} />
       </button>
     </div>
   );

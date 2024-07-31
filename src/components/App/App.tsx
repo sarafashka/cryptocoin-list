@@ -1,23 +1,19 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import CoinsPage from '../../pages/CoinsPage';
-import Error404 from '../../pages/Error404';
-import CoinCard from '../CoinCard/CoinCard';
-import AppRoutes from '../../constants/routes';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from '../../context/ThemeProvider';
+import { store } from '../../store';
+import ErrorBoundary from '../ErrorBoundary';
+import CoinsPage from '../../pages/CoinsPage/CoinsPage';
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: `${AppRoutes.HOME}`,
-      element: <CoinsPage />,
-      errorElement: <Error404 />,
-      children: [
-        {
-          path: `${AppRoutes.COIN}`,
-          element: <CoinCard />,
-        },
-      ],
-    },
-  ]);
-  return <RouterProvider router={router} />;
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <Provider store={store}>
+          <CoinsPage />
+        </Provider>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
 };
+
 export default App;
