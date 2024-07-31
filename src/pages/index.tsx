@@ -14,22 +14,22 @@ export default function Home(data: {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async () =>
-    //context
-    {
-      // const { page, searchQuery } = context.query;
-      const data = await store.dispatch(
-        getCoins.initiate({
-          page: 1,
-          searchQuery: '',
-        })
-      );
+  (store) => async (context) => {
+    const { page, search } = context.query;
+    const pageNumber = typeof page === 'string' ? parseInt(page, 10) : 1;
+    const searchQuery = typeof search === 'string' ? search : '';
+    const data = await store.dispatch(
+      getCoins.initiate({
+        page: pageNumber || 1,
+        searchQuery: searchQuery || '',
+      })
+    );
 
-      await Promise.all(store.dispatch(coinsApi.util.getRunningQueriesThunk()));
-      return {
-        props: {
-          coins: data,
-        },
-      };
-    }
+    await Promise.all(store.dispatch(coinsApi.util.getRunningQueriesThunk()));
+    return {
+      props: {
+        coins: data,
+      },
+    };
+  }
 );

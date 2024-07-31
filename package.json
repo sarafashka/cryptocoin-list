@@ -5,9 +5,9 @@
   "homepage": "https://sarafashka.github.io/cryptocoin-list/",
   "type": "commonjs",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "deploy": "gh-pages -d dist",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --ext ts,tsx --fix src",
     "preview": "vite preview",
