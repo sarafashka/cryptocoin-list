@@ -1,10 +1,15 @@
-/**@type {import('jest').Config} */
+import type { Config } from 'jest';
+import nextJest from 'next/jest.js';
 
-const config = {
-  preset: 'ts-jest',
+const createJestConfig = nextJest({
+  dir: './src',
+});
+
+const config: Config = {
+  coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.tsx', '!src/main.tsx'],
+  collectCoverageFrom: ['src/**/*.tsx'],
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
@@ -18,4 +23,4 @@ const config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };
 
-export default config;
+export default createJestConfig(config);
