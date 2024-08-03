@@ -13,8 +13,8 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className={pagination}>
       <button
         className={pagination__buttons}
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
+        onClick={() => onPageChange(Number(currentPage) - 1)}
+        disabled={Number(currentPage) === 1}
       >
         Previous
       </button>
@@ -23,8 +23,8 @@ const Pagination: React.FC<PaginationProps> = ({
       >{`${currentPage} of ${totalPages} `}</span>
       <button
         className={pagination__buttons}
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(Number(currentPage) + 1)}
+        disabled={Number(currentPage) === totalPages}
       >
         Next
       </button>

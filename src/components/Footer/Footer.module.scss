@@ -1,6 +1,7 @@
 @import '../../assets/styles/constants';
 
 .footer {
+  grid-column: span 2;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,9 +1,9 @@
 import { Provider } from 'react-redux';
-import ErrorBoundary from '../components/ErrorBoundary';
+import ErrorBoundary from '../src/components/ErrorBoundary';
 import '../global.scss';
 import type { AppProps } from 'next/app';
-import { store } from '../store';
-import { ThemeProvider } from '../context/ThemeProvider';
+import { store } from '../src/store';
+import { ThemeProvider } from '../src/context/ThemeProvider';
 import React from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {

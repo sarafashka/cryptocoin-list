@@ -5,6 +5,7 @@
   flex: 2;
   min-width: 30rem;
   position: relative;
+  align-self: start;
   display: grid;
   grid-template: auto auto auto / repeat(2, 1fr);
   gap: 10px;

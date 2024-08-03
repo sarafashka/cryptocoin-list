@@ -1,19 +1,16 @@
 import styles from './CoinsPage.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../Search';
-import Footer from '../Footer';
-// import Loader from '../Loader';
 import CoinsList from '../CoinsList';
-import FlyoutMenu from '../FlyoutMenu';
-import { useAppSelector } from '../../hooks/reduxTypedHooks';
-import Header from '../Header';
+import { useAppDispatch } from '../../hooks/reduxTypedHooks';
 import { CoinsData } from '../../store/api/coinsApi.type';
 import { useRouter } from 'next/router';
 import Pagination from '../Pagination';
 import { getTotalPagesNumber } from '../../utils/getTotalPagesNumber ';
-import { COINS_LIMIT } from '../../constants/constants';
+import { COINS_INITIAL_PAGE, COINS_LIMIT } from '../../constants/constants';
+import { setCoinsFromPage } from '../../store/slices/coinsOnPageSlice';
 
-const { app, main, coins, aside } = styles;
+const { main, coins, aside } = styles;
 
 type CoinsPageProps = {
   dataProps: CoinsData;
@@ -21,37 +18,53 @@ type CoinsPageProps = {
 
 const CoinsPage: React.FC<CoinsPageProps> = ({ dataProps }) => {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { page } = router.query;
+  const pageString = typeof page === 'string' ? page : COINS_INITIAL_PAGE;
+  const [currentPage, setCurrentPage] = useState(pageString);
+  const dispatch = useAppDispatch();
+  // const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
 
-  const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
+  useEffect(() => {
+    if (dataProps) {
+      dispatch(setCoinsFromPage(dataProps.data.coins));
+    }
+  }, [dataProps, dispatch]);
 
-  console.log('ssr data', dataProps);
+  useEffect(() => {
+    if (!page) {
+      handlePageChange(Number(COINS_INITIAL_PAGE));
+    }
+  });
 
   const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
+    setCurrentPage(String(newPage));
     router.push({
       query: {
         ...router.query,
-        page: newPage,
+        page: String(newPage),
       },
     });
   };
-  // const updateSearchRequest = (searchRequest: string) => {
-  //   setSearchValue(searchRequest);
-  // };
+  const updateSearchRequest = (searchRequest: string) => {
+    setCurrentPage(COINS_INITIAL_PAGE);
+    router.push({
+      query: {
+        ...router.query,
+        search: searchRequest,
+        page: COINS_INITIAL_PAGE,
+      },
+    });
+  };
 
   return (
     <>
-      <div className={`${app} container`}>
-        <Header />
+      <div>
         <main className={main}>
           <aside className={aside}>
             <Search
-              // updatedCoinsList={updateSearchRequest}
+              updatedCoinsList={updateSearchRequest}
               isDisabled={false}
-              // isDisabled={isLoading}
             ></Search>
-            {/* <div>{isLoading ? <Loader role="loader" /> : ''}</div> */}
             <section className={coins}>
               <div>
                 {dataProps && dataProps.data.coins.length > 0 ? (
@@ -74,9 +87,8 @@ const CoinsPage: React.FC<CoinsPageProps> = ({ dataProps }) => {
             </section>
           </aside>
           <div></div>
-          {selectedCoins.length > 0 && <FlyoutMenu />}
+          {/* {selectedCoins.length > 0 && <FlyoutMenu />} */}
         </main>
-        <Footer />
       </div>
     </>
   );

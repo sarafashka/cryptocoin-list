@@ -4,6 +4,7 @@
 .header {
   display: grid;
   grid-template-columns: auto auto 1fr;
+  grid-column: span 2;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 0 0 1rem;

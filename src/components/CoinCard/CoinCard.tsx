@@ -1,31 +1,22 @@
 import React, { useRef } from 'react';
 import cancelClose from '../../../public/svg/cross_cancel_icon.svg';
-// import cancelClose from '../../assets/svg/cross_cancel_icon.svg';
 import styles from './CoinCard.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
-import { coinsApi } from '../../store';
-import Loader from '../Loader';
+import { CoinDetailed } from '../../store/api/coinsApi.type';
+import { useRouter } from 'next/router';
 
-const CoinCard: React.FC = () => {
-  const { coinId } = useParams<{ coinId: string }>();
-  const navigate = useNavigate();
-
+type CoinCardProps = {
+  coin: CoinDetailed;
+};
+const CoinCard: React.FC<CoinCardProps> = ({ coin }) => {
   const blockRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  const { data, isLoading } = coinsApi.useGetCoinQuery(coinId || '', {
-    skip: !coinId,
-  });
-
-  if (isLoading) {
-    return <Loader role="loader" />;
-  }
-
-  if (!data || !data.data) {
+  if (!coin || !coin.data) {
     return <div>No data available</div>;
   }
 
   const { name, symbol, price, rank, iconUrl, change, description } =
-    data.data.coin;
+    coin.data.coin;
 
   return (
     <div className={styles.card} ref={blockRef}>
@@ -41,7 +32,7 @@ const CoinCard: React.FC = () => {
       <button
         className={styles.card__close}
         onClick={() => {
-          navigate(-1);
+          router.back();
         }}
       >
         <img src={cancelClose.src} alt="close" width={30} height={30} />

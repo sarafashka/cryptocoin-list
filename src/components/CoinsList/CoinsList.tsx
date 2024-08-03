@@ -9,13 +9,14 @@ import {
   removeSelectedCoin,
 } from '../../store/slices/coinsSelectedSlice';
 import { CoinTableProps } from './CoinsList.type';
+import { useRouter } from 'next/router';
 
 const { coin, coins, coin__name } = styles;
 
 const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
-  // const location = useLocation();
-  // const pageNumber = new URLSearchParams(location.search).get('page') || '1';
-  const pageNumber = 1;
+  const router = useRouter();
+  const { page, search } = router.query;
+
   const dispatch = useAppDispatch();
   const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
   const coinsOnPage = useAppSelector((state) => state.coinsOnPage.coins);
@@ -30,6 +31,12 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
     }
   };
 
+  const getHref = (id: string) => {
+    return search
+      ? `${AppRoutes.HOME}coin/${id}?page=${page}&search=${search}`
+      : `${AppRoutes.HOME}coin/${id}?page=${page}`;
+  };
+
   return (
     <>
       <div className={coins}>
@@ -41,11 +48,7 @@ const CoinsList: React.FC<CoinTableProps> = ({ coinsList }) => {
               id={`checkbox-${item.uuid}`}
             />
             <div className={coin__name}>
-              <Link
-                href={`${AppRoutes.HOME}coins/${item.uuid}?page=${pageNumber}`}
-              >
-                {item.name}
-              </Link>
+              <Link href={getHref(item.uuid)}>{item.name}</Link>
             </div>
           </div>
         ))}

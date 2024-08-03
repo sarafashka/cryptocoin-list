@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 const { search__block, search__input, search__submit } = styles;
 
-const Search: React.FC<SearchProps> = ({ isDisabled }) => {
+const Search: React.FC<SearchProps> = ({ isDisabled, updatedCoinsList }) => {
   const router = useRouter();
   const { search } = router.query;
   const [inputValue, setInputValue] = useState(search);
@@ -18,17 +18,8 @@ const Search: React.FC<SearchProps> = ({ isDisabled }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (router.pathname === '/') {
-      if (inputValue) {
-        router.push({
-          query: { page: '1', search: inputValue },
-        });
-      } else {
-        router.push({
-          query: { page: '1' },
-        });
-      }
-    }
+    const searchRequest = typeof inputValue === 'string' ? inputValue : '';
+    updatedCoinsList(searchRequest);
   };
 
   return (

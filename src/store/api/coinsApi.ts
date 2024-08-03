@@ -12,6 +12,7 @@ export const coinsApi = createApi({
       return headers;
     },
   }),
+
   endpoints: (build) => ({
     getCoins: build.query<CoinsData, { page: number; searchQuery?: string }>({
       query: ({ page, searchQuery }) => {

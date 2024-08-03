@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import styles from './Header.module.scss';
 import logo from '../../../public/logo.svg';
-// import logo from '../../assets/img/logo.png';
 import { ThemeContext } from '../../context/ThemeProvider';
 
 const Header: React.FC = () => {
   const context = useContext(ThemeContext);
 
   if (!context) {
-    throw new Error('ExampleComponent must be used within a ThemeProvider');
+    throw new Error('Must be used with Theme Provider');
   }
 
   const { theme, toggleTheme } = context;

@@ -1,17 +1,9 @@
 @import '../../assets/styles/constants';
 @import '../../assets/styles/mixins';
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 0;
-  @include common-container;
-}
 
 .main {
-  min-width: 80vw;
   position: relative;
+  align-self: start;
   display: grid;
   grid-template-columns: 20rem 1fr;
   gap: 3rem;
