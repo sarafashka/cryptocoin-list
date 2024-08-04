@@ -12,7 +12,6 @@ const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange, id }) => {
         type="checkbox"
         role="checkbox"
         onChange={(e) => onChange(e.target.checked)}
-        // id={id}
       />
       <div className={checkbox__mark}></div>
     </label>

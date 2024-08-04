@@ -1,10 +1,11 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import CoinCard from './CoinCard';
 import { coinsApi } from '../../store';
+import { CoinDetailed, CoinDetailedInfo } from '../../store/api/coinsApi.type';
+import { useRouter } from 'next/router';
 
 jest.mock('../../store', () => {
   const originalModule = jest.requireActual('../../store');
@@ -16,13 +17,29 @@ jest.mock('../../store', () => {
   };
 });
 
-import { useNavigate } from 'react-router-dom';
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn(),
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
 }));
 
 describe('CoinCard', () => {
+  const mockCoin: Partial<CoinDetailedInfo> = {
+    data: {
+      coin: {
+        name: 'Bitcoin',
+        symbol: 'BTC',
+        price: '30000',
+        rank: 1,
+        iconUrl: 'https://example.com/bitcoin-icon.png',
+        change: '2.5',
+        description: 'Bitcoin is a cryptocurrency.',
+      },
+    },
+  };
+
+  const emptyCoin: Partial<CoinDetailedInfo> = {
+    data: null,
+  };
+
   beforeEach(() => {
     (coinsApi.useGetCoinQuery as jest.Mock).mockClear();
   });
@@ -35,13 +52,11 @@ describe('CoinCard', () => {
 
     render(
       <Provider store={store}>
-        <Router>
-          <CoinCard />
-        </Router>
+        <CoinCard coin={emptyCoin as CoinDetailed} />
       </Provider>
     );
 
-    expect(screen.getByRole('loader')).toBeInTheDocument();
+    expect(screen.getByText('No data available')).toBeInTheDocument();
   });
 
   test('renders no data available', async () => {
@@ -52,9 +67,7 @@ describe('CoinCard', () => {
 
     render(
       <Provider store={store}>
-        <Router>
-          <CoinCard />
-        </Router>
+        <CoinCard coin={emptyCoin as CoinDetailed} />
       </Provider>
     );
 
@@ -63,27 +76,13 @@ describe('CoinCard', () => {
 
   test('renders CoinCard with data', async () => {
     (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          coin: {
-            name: 'Bitcoin',
-            symbol: 'BTC',
-            price: '30000',
-            rank: '1',
-            iconUrl: 'https://example.com/bitcoin-icon.png',
-            change: '2.5',
-            description: 'Bitcoin is a cryptocurrency.',
-          },
-        },
-      },
+      data: mockCoin,
       isLoading: false,
     });
 
     render(
       <Provider store={store}>
-        <Router>
-          <CoinCard />
-        </Router>
+        <CoinCard coin={mockCoin as CoinDetailed} />
       </Provider>
     );
 
@@ -100,59 +99,35 @@ describe('CoinCard', () => {
 
   test('navigates back when close button is clicked', () => {
     (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          coin: {
-            name: 'Bitcoin',
-            symbol: 'BTC',
-            price: '30000',
-            rank: '1',
-            iconUrl: 'https://example.com/bitcoin-icon.png',
-            change: '2.5',
-            description: 'Bitcoin is a cryptocurrency.',
-          },
-        },
-      },
+      data: mockCoin,
       isLoading: false,
     });
-    const navigate = jest.fn();
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
+
+    const mockBack = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      back: mockBack,
+    });
+
     render(
       <Provider store={store}>
-        <Router>
-          <CoinCard />
-        </Router>
+        <CoinCard coin={mockCoin as CoinDetailed} />
       </Provider>
     );
 
-    fireEvent.click(screen.getByAltText('close'));
+    fireEvent.click(screen.getByTestId('close'));
 
-    expect(navigate).toHaveBeenCalledWith(-1);
+    expect(mockBack).toHaveBeenCalled();
   });
 
   test('matches snapshot', async () => {
     (coinsApi.useGetCoinQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          coin: {
-            name: 'Bitcoin',
-            symbol: 'BTC',
-            price: '30000',
-            rank: '1',
-            iconUrl: 'https://example.com/bitcoin-icon.png',
-            change: '2.5',
-            description: 'Bitcoin is a cryptocurrency.',
-          },
-        },
-      },
+      data: mockCoin,
       isLoading: false,
     });
 
     const { asFragment } = render(
       <Provider store={store}>
-        <Router>
-          <CoinCard />
-        </Router>
+        <CoinCard coin={mockCoin as CoinDetailed} />
       </Provider>
     );
 

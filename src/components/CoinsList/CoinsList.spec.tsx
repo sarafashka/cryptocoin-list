@@ -1,25 +1,25 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 import CoinsList from './CoinsList';
 import {
   addSelectedCoin,
   removeSelectedCoin,
 } from '../../store/slices/coinsSelectedSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Coin } from '../../store/api/coinsApi.type';
 
 jest.mock('../../hooks/reduxTypedHooks');
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLocation: jest.fn(),
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
 }));
 
 const mockDispatch = jest.fn();
 const mockUseAppSelector = useAppSelector as jest.Mock;
 const mockUseAppDispatch = useAppDispatch as jest.Mock;
-const mockUseLocation = useLocation as jest.Mock;
+const mockUseRouter = useRouter as jest.Mock;
 
 const coinsList: Coin[] = [
   {
@@ -67,7 +67,9 @@ describe('CoinsList', () => {
         coinsOnPage: { coins: coinsList },
       })
     );
-    mockUseLocation.mockReturnValue({ search: '?page=1' } as unknown);
+    mockUseRouter.mockReturnValue({
+      query: { page: '1', search: '' },
+    });
   });
 
   afterEach(() => {
@@ -76,9 +78,9 @@ describe('CoinsList', () => {
 
   test('renders coins list with checkboxes and links', () => {
     render(
-      <Router>
+      <Provider store={store}>
         <CoinsList coinsList={coinsList} />
-      </Router>
+      </Provider>
     );
 
     expect(screen.getByText('Bitcoin')).toBeInTheDocument();
@@ -93,8 +95,8 @@ describe('CoinsList', () => {
     const bitcoinLink = screen.getByText('Bitcoin').closest('a');
     const ethereumLink = screen.getByText('Ethereum').closest('a');
 
-    expect(bitcoinLink).toHaveAttribute('href', '/coins/1?page=1');
-    expect(ethereumLink).toHaveAttribute('href', '/coins/2?page=1');
+    expect(bitcoinLink).toHaveAttribute('href', '/coin/1?page=1');
+    expect(ethereumLink).toHaveAttribute('href', '/coin/2?page=1');
   });
 
   test('dispatches addSelectedCoin when checkbox is checked', () => {
@@ -106,9 +108,9 @@ describe('CoinsList', () => {
     );
 
     render(
-      <Router>
+      <Provider store={store}>
         <CoinsList coinsList={coinsList} />
-      </Router>
+      </Provider>
     );
 
     const ethereumCheckbox = screen.getByTestId('checkbox-2');
@@ -126,9 +128,9 @@ describe('CoinsList', () => {
     );
 
     render(
-      <Router>
+      <Provider store={store}>
         <CoinsList coinsList={coinsList} />
-      </Router>
+      </Provider>
     );
 
     const bitcoinCheckbox = screen.getByTestId('checkbox-1');

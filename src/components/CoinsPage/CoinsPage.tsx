@@ -22,7 +22,6 @@ const CoinsPage: React.FC<CoinsPageProps> = ({ dataProps }) => {
   const pageString = typeof page === 'string' ? page : COINS_INITIAL_PAGE;
   const [currentPage, setCurrentPage] = useState(pageString);
   const dispatch = useAppDispatch();
-  // const selectedCoins = useAppSelector((state) => state.coinsSelected.coins);
 
   useEffect(() => {
     if (dataProps) {
@@ -87,7 +86,6 @@ const CoinsPage: React.FC<CoinsPageProps> = ({ dataProps }) => {
             </section>
           </aside>
           <div></div>
-          {/* {selectedCoins.length > 0 && <FlyoutMenu />} */}
         </main>
       </div>
     </>

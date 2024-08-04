@@ -1,12 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Search from './Search';
+import { useRouter } from 'next/router';
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
 
 describe('Search Component', () => {
   const mockUpdatedCoinsList = jest.fn();
+  const mockPush = jest.fn();
+  const mockQuery = {};
 
   beforeEach(() => {
     mockUpdatedCoinsList.mockClear();
+    (useRouter as jest.Mock).mockReturnValue({
+      query: mockQuery,
+      push: mockPush,
+    });
   });
 
   it('update the search input', () => {

@@ -30,6 +30,7 @@ const CoinCard: React.FC<CoinCardProps> = ({ coin }) => {
       <div className={styles.card__change}>{change}%</div>
       <div className={styles.card__description}>{description}</div>
       <button
+        data-testid="close"
         className={styles.card__close}
         onClick={() => {
           router.back();

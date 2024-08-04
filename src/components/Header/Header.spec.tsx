@@ -53,7 +53,7 @@ describe('Header', () => {
       .mockImplementation(() => {});
 
     expect(() => render(<Header />)).toThrow(
-      'ExampleComponent must be used within a ThemeProvider'
+      'Must be used with Theme Provider'
     );
 
     consoleErrorSpy.mockRestore();

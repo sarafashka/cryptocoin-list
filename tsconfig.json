@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "lib": [
+      "ES2020",
       "dom",
       "dom.iterable",
       "esnext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "allowImportingTsExtensions": true,
     "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "module": "esnext",
     "esModuleInterop": true,
@@ -21,8 +23,14 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+       /* Linting */
+       "strict": true,
+       "noUnusedLocals": true,
+       "noUnusedParameters": true,
+       "noFallthroughCasesInSwitch": true
   },
+  
   "include": [
     "next-env.d.ts",
     "./dist/types/**/*.ts",

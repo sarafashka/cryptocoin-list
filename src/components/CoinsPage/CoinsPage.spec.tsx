@@ -6,6 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { coinsApi, store } from '../../store';
 import CoinsPage from './CoinsPage';
 import { ThemeProvider } from '../../context/ThemeProvider';
+import mockRouter from 'next-router-mock';
+import { CoinsData } from '../../store/api/coinsApi.type';
 
 jest.mock('../../store', () => {
   const originalModule = jest.requireActual('../../store');
@@ -17,6 +19,8 @@ jest.mock('../../store', () => {
   };
 });
 
+jest.mock('next/router', () => require('next-router-mock'));
+
 const renderWithProviders = (ui: React.ReactElement) => {
   return render(
     <Provider store={store}>
@@ -27,58 +31,72 @@ const renderWithProviders = (ui: React.ReactElement) => {
   );
 };
 
+const mockCoinsData: CoinsData = {
+  data: {
+    coins: [
+      {
+        uuid: '1',
+        name: 'Bitcoin',
+        symbol: 'BTC',
+        color: '#f7931a',
+        iconUrl: '',
+        marketCap: '',
+        price: '',
+        listedAt: 0,
+        change: '',
+        rank: '',
+        sparkline: [],
+        coinrankingUrl: '',
+        '24hVolume': '',
+        btcPrice: '',
+        contractAddresses: [],
+      },
+      {
+        uuid: '2',
+        name: 'Ethereum',
+        symbol: 'ETH',
+        color: '#3c3c3d',
+        iconUrl: '',
+        marketCap: '',
+        price: '',
+        listedAt: 0,
+        change: '',
+        rank: '',
+        sparkline: [],
+        coinrankingUrl: '',
+        '24hVolume': '',
+        btcPrice: '',
+        contractAddresses: [],
+      },
+    ],
+    stats: {
+      total: 2,
+      totalCoins: 0,
+      totalMarkets: 0,
+      totalExchanges: 0,
+      totalMarketCap: '',
+      total24hVolume: '',
+    },
+  },
+  status: '',
+};
+
 describe('CoinsPage', () => {
+  beforeEach(() => {
+    mockRouter.setCurrentUrl('/coins?page=1');
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   test('renders CoinsPage with data', async () => {
     (coinsApi.useGetCoinsQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          coins: [
-            {
-              uuid: '1',
-              name: 'Bitcoin',
-              symbol: 'BTC',
-              color: '#f7931a',
-              iconUrl: '',
-              marketCap: '',
-              price: '',
-              listedAt: 0,
-              change: '',
-              rank: '',
-              sparkline: [],
-              coinrankingUrl: '',
-              '24hVolume': '',
-              btcPrice: '',
-              contractAddresses: [],
-            },
-            {
-              uuid: '2',
-              name: 'Ethereum',
-              symbol: 'ETH',
-              color: '#3c3c3d',
-              iconUrl: '',
-              marketCap: '',
-              price: '',
-              listedAt: 0,
-              change: '',
-              rank: '',
-              sparkline: [],
-              coinrankingUrl: '',
-              '24hVolume': '',
-              btcPrice: '',
-              contractAddresses: [],
-            },
-          ],
-          stats: { total: 2 },
-        },
-      },
+      data: mockCoinsData,
       isLoading: false,
     });
 
-    renderWithProviders(<CoinsPage />);
+    renderWithProviders(<CoinsPage dataProps={mockCoinsData} />);
 
     expect(screen.queryByRole('loader')).not.toBeInTheDocument();
 
@@ -99,7 +117,23 @@ describe('CoinsPage', () => {
       isLoading: false,
     });
 
-    renderWithProviders(<CoinsPage />);
+    renderWithProviders(
+      <CoinsPage
+        dataProps={{
+          data: {
+            coins: [],
+            stats: {
+              total: 0,
+              totalCoins: 0,
+              totalMarkets: 0,
+              totalExchanges: 0,
+              totalMarketCap: '',
+              total24hVolume: '',
+            },
+          },
+        }}
+      />
+    );
 
     expect(screen.queryByRole('loader')).not.toBeInTheDocument();
 
@@ -110,51 +144,13 @@ describe('CoinsPage', () => {
 
   test('matches snapshot', async () => {
     (coinsApi.useGetCoinsQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          coins: [
-            {
-              uuid: '1',
-              name: 'Bitcoin',
-              symbol: 'BTC',
-              color: '#f7931a',
-              iconUrl: '',
-              marketCap: '',
-              price: '',
-              listedAt: 0,
-              change: '',
-              rank: '',
-              sparkline: [],
-              coinrankingUrl: '',
-              '24hVolume': '',
-              btcPrice: '',
-              contractAddresses: [],
-            },
-            {
-              uuid: '2',
-              name: 'Ethereum',
-              symbol: 'ETH',
-              color: '#3c3c3d',
-              iconUrl: '',
-              marketCap: '',
-              price: '',
-              listedAt: 0,
-              change: '',
-              rank: '',
-              sparkline: [],
-              coinrankingUrl: '',
-              '24hVolume': '',
-              btcPrice: '',
-              contractAddresses: [],
-            },
-          ],
-          stats: { total: 2 },
-        },
-      },
+      data: mockCoinsData,
       isLoading: false,
     });
 
-    const { asFragment } = renderWithProviders(<CoinsPage />);
+    const { asFragment } = renderWithProviders(
+      <CoinsPage dataProps={mockCoinsData} />
+    );
     await waitFor(() => {
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
     });
