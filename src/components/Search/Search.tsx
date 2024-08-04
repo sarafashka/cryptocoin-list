@@ -9,7 +9,7 @@ const { search__block, search__input, search__submit } = styles;
 const Search: React.FC<SearchProps> = ({ isDisabled, updatedCoinsList }) => {
   const router = useRouter();
   const { search } = router.query;
-  const [inputValue, setInputValue] = useState(search);
+  const [inputValue, setInputValue] = useState(search || '');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
