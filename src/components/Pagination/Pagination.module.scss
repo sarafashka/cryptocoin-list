@@ -1,0 +1,15 @@
+@import '../../assets/styles/constants';
+@import '../../assets/styles/mixins';
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  &__buttons {
+    @include transparent-btn;
+  }
+  &__current {
+    color: $accent;
+  }
+}

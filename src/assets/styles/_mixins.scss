@@ -1,0 +1,122 @@
+@import './constants';
+
+/* Common Container */
+@mixin common-container {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 0 1rem;
+
+  @include mobile {
+    width: 80vw;
+  }
+  @include small-mobile {
+    width: 100vw;
+    max-width: 272px;
+  }
+}
+
+/* Responsive media */
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media (max-width: $small-mobile) {
+    @content;
+  }
+}
+
+/* Buttons*/
+
+@mixin action-btn {
+  background: $gradient-primary;
+  padding: 20px 33px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  text-transform: capitalize;
+  outline: none;
+  cursor: pointer;
+  transition: 1s;
+  &:hover {
+    background: $gradient-secondary;
+  }
+}
+
+@mixin transparent-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    color: $accent;
+  }
+}
+
+/* Fonts */
+
+@mixin H1 {
+  font-size: 85px;
+  font-weight: 900;
+  line-height: 130%;
+  color: var(--text-primary);
+
+  @include mobile {
+    font-size: 22px;
+  }
+}
+
+@mixin H2 {
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 130%;
+  color: var(--text-primary) y;
+
+  @include mobile {
+    font-size: 20px;
+  }
+}
+
+@mixin H3 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 122%;
+  color: var(--text-primary);
+
+  @include mobile {
+    font-size: 18px;
+  }
+}
+
+@mixin H4 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%;
+  color: var(--text-primary);
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+@mixin B1 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+@mixin B2 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  color: var(--text-primary);
+  @include mobile {
+    font-size: 14px;
+  }
+}
