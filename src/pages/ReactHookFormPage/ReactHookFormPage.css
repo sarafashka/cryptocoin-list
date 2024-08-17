@@ -1,0 +1,38 @@
+.form__field {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  position: static;
+  max-width: 240px;
+}
+
+.form__field label.form__label {
+  font-size: 0.75rem;
+  color: #818CF8;
+  font-weight: 700;
+  position: relative;
+  top: 0.5rem;
+  margin: 0 0 0 7px;
+  padding: 0 3px;
+  background: #fff;
+  width: fit-content;
+}
+
+.form__field input[type=text].form__input {
+  padding: 11px 10px;
+  font-size: 0.75rem;
+  border: 2px #818CF8 solid;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.form__field input[type=text].form__input:focus {
+  outline: none;
+}
+.form__error {
+  font-size: 0.7rem;
+  margin: 0;
+  color: #f00000;
+
+}
+
