@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import FormAnswers from '../../components/FormAnswers/FormAnswers';
 
-function MainPage() {
+const MainPage = () => {
   return (
     <>
       <Link to="/uncontrolled">
@@ -9,8 +10,9 @@ function MainPage() {
       <Link to="/react-hook-form">
         <h2>React Hook Form</h2>
       </Link>
+      <FormAnswers />
     </>
   );
-}
+};
 
 export default MainPage;

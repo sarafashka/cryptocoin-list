@@ -1,51 +1,27 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import './ReactHookFormPage.css';
+import { FormInputs } from '../../store/slices/types';
+import { schema } from './schemaValidation';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
+import { addFormAnswers } from '../../store/slices/formAnswersSlice';
 
-interface IFormInput {
-  name: string;
-  age: number;
-  email: string;
-  sex: string;
-  country: string;
-  picture: string;
-  terms: boolean;
-}
+const ReactHookFormPage: React.FC = () => {
+  const navigate = useNavigate();
+  const countries = useAppSelector((state) => state.countries);
+  const dispatch = useAppDispatch();
 
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is a required field')
-    .test(
-      'first-letter-uppercase',
-      'First letter should be uppercase',
-      (value) => {
-        if (!value) return true;
-        return /^[A-ZA-ЯЁ]/.test(value);
-      }
-    ),
-  age: yup
-    .number()
-    .min(0, 'Age can not be negative')
-    .required('Age is a required field'),
-  email: yup.string().email().required('Email is a required field'),
-  sex: yup.string().required('Sex is a required field'),
-  country: yup.string().required('Country is a required field'),
-  picture: yup.string().required('Picture is a required field'),
-  terms: yup.boolean().required(),
-});
-
-export const ReactHookFormPage: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({ resolver: yupResolver(schema) });
+  } = useForm<FormInputs>({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
+  const onSubmit = (data: FormInputs) => {
+    dispatch(addFormAnswers(data));
+    navigate('/');
   };
 
   return (
@@ -56,37 +32,54 @@ export const ReactHookFormPage: React.FC = () => {
           <label htmlFor="name" className="form__label">
             Name
           </label>
-          <input
-            {...register('name')}
-            id="name"
-            className="form__input"
-            type="text"
-          />
+          <input {...register('name')} id="name" className="form__input" />
           {errors.name && <p className="form__error">{errors.name.message}</p>}
         </div>
 
-        <label>Age</label>
-        <input {...register('age')} />
-        {errors.age && <p className="form__error">{errors.age.message}</p>}
+        <div className="form__field">
+          <label htmlFor="age" className="form__label">
+            Age
+          </label>
+          <input id="age" className="form__input" {...register('age')} />
+          {errors.age && <p className="form__error">{errors.age.message}</p>}
+        </div>
 
-        <label>Email</label>
-        <input {...register('email')} />
-        {errors.email && <p className="form__error">{errors.email.message}</p>}
+        <div className="form__field">
+          <label htmlFor="email" className="form__label">
+            Email
+          </label>
+          <input id="email" className="form__input" {...register('email')} />
+          {errors.email && (
+            <p className="form__error">{errors.email.message}</p>
+          )}
+        </div>
 
-        <div className="input-field">
-          <label>
+        <div className="form__radio">
+          <label htmlFor="male">
             <div>
-              <input type="radio" value="male" {...register('sex')} />
+              <input
+                id="male"
+                type="radio"
+                value="male"
+                {...register('gender')}
+              />
               male
             </div>
           </label>
-          <label>
+          <label htmlFor="female">
             <div>
-              <input type="radio" value="female" {...register('sex')} />
+              <input
+                id="female"
+                type="radio"
+                value="female"
+                {...register('gender')}
+              />
               female
             </div>
           </label>
-          {errors.sex && <p className="form__error">{errors.sex.message}</p>}
+          {errors.gender && (
+            <p className="form__error">{errors.gender.message}</p>
+          )}
         </div>
 
         <div className="input-field">
@@ -97,13 +90,26 @@ export const ReactHookFormPage: React.FC = () => {
           )}
         </div>
 
-        <label>Country</label>
-        <input {...register('country')} />
-        {errors.country && (
-          <p className="form__error">{errors.country.message}</p>
-        )}
         <input {...register('terms')} type="checkbox" />
         {errors.terms && <p className="form__error">{errors.terms.message}</p>}
+
+        <div className="form__field">
+          <label htmlFor="country" className="form__label">
+            Country
+          </label>
+          <select {...register('country')} className="form__input" id="country">
+            {countries.map((item, index) => {
+              return (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+          {errors.country && (
+            <p className="form__error">{errors.country.message}</p>
+          )}
+        </div>
 
         <input type="submit" />
       </form>

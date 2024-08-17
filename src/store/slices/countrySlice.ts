@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { listOfCountries } from '../constants/listOfCountries';
+import { listOfCountries } from '../../constants/listOfCountries';
 
 const initialState: string[] = listOfCountries;
 

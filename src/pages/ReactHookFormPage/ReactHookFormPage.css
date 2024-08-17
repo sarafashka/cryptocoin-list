@@ -6,7 +6,7 @@
   max-width: 240px;
 }
 
-.form__field label.form__label {
+.form__label {
   font-size: 0.75rem;
   color: #818CF8;
   font-weight: 700;
@@ -18,7 +18,8 @@
   width: fit-content;
 }
 
-.form__field input[type=text].form__input {
+.form__input {
+  width: 15rem;
   padding: 11px 10px;
   font-size: 0.75rem;
   border: 2px #818CF8 solid;
@@ -26,13 +27,16 @@
   background: #fff;
 }
 
-.form__field input[type=text].form__input:focus {
+.form__input:focus {
   outline: none;
 }
 .form__error {
   font-size: 0.7rem;
   margin: 0;
   color: #f00000;
+}
 
+.form__radio {
+  display: flex;
 }
 
