@@ -1,6 +1,6 @@
 export interface FormInputs {
   name: string;
-  age: number;
+  age: number | null;
   email: string;
   password?: string;
   confirmPassword?: string;

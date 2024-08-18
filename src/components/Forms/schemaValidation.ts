@@ -21,7 +21,7 @@ export const schema = yup.object().shape({
   gender: yup.string().required('Gender is a required field'),
   country: yup.string().required('Country is a required field'),
   picture: yup.string().required('Picture is a required field'),
-  terms: yup.boolean().required(),
+  terms: yup.boolean().oneOf([true], 'Must be check').required(),
   password: yup
     .string()
     .required('Password is required')

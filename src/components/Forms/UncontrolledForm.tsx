@@ -35,7 +35,7 @@ const UncontrolledForm: React.FC = () => {
 
     const formData: FormInputs = {
       name: nameRef.current?.value || '',
-      age: Number(ageRef.current?.value),
+      age: Number(ageRef.current?.value) || null,
       email: emailRef.current?.value || '',
       gender: maleRef.current?.checked ? 'male' : 'female',
       picture: image || '',
@@ -165,8 +165,8 @@ const UncontrolledForm: React.FC = () => {
             type="password"
             onChange={handlePasswordChange}
           />
-          {errors.password && <p className="form__error">{errors.password}</p>}
           <p className="input__note">Strength: {passwordStrength}</p>
+          {errors.password && <p className="form__error">{errors.password}</p>}
         </div>
 
         <div className="form__field">
@@ -201,7 +201,9 @@ const UncontrolledForm: React.FC = () => {
 
         <div className="form__checkbox">
           <input ref={termsRef} id="terms" type="checkbox" />
-          <label htmlFor="terms">I accept Terms and Conditions</label>
+          <label htmlFor="terms" className="input__note ">
+            I accept Terms and Conditions
+          </label>
           {errors.terms && <p className="form__error">{errors.terms}</p>}
         </div>
 
