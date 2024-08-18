@@ -16,9 +16,11 @@ const FormAnswers = () => {
                   <div className="answer__email">{item.email}</div>
                   <div className="answer__gender">{item.gender}</div>
                   <div className="answer__country">{item.country}</div>
-                  <div className="answer__password">1111</div>
+                  <div className="answer__password">{item.password}</div>
                   <div className="answer__accept">{String(item.terms)}</div>
-                  <div className="answer__picture">{item.picture}</div>
+                  <div className="answer__picture">
+                    <img src={item.picture} alt="picture" width={100} />
+                  </div>
                 </div>
               </>
             );

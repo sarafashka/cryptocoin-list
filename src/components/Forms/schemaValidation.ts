@@ -22,4 +22,18 @@ export const schema = yup.object().shape({
   country: yup.string().required('Country is a required field'),
   picture: yup.string().required('Picture is a required field'),
   terms: yup.boolean().required(),
+  password: yup
+    .string()
+    .required('Password is required')
+    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/\d/, 'Password must contain at least one number')
+    .matches(
+      /[@$!%*?&#]/,
+      'Password must contain at least one special character'
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required('Please confirm your password'),
 });

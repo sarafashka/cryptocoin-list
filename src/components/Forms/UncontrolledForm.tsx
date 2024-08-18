@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxTypedHooks';
 import { addFormAnswers } from '../../store/slices/formAnswersSlice';
 import { ValidationError } from 'yup';
+import { checkPassword } from '../../utils/checkPasswordStrength';
 
 type Errors = Partial<Record<keyof FormInputs, string>>;
 
@@ -15,6 +16,8 @@ const UncontrolledForm: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [errors, setErrors] = useState<Errors>({});
+  const [passwordStrength, setPasswordStrength] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -23,6 +26,8 @@ const UncontrolledForm: React.FC = () => {
   const femaleRef = useRef<HTMLInputElement>(null);
   const pictureRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLSelectElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const termsRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,8 +38,10 @@ const UncontrolledForm: React.FC = () => {
       age: Number(ageRef.current?.value),
       email: emailRef.current?.value || '',
       gender: maleRef.current?.checked ? 'male' : 'female',
-      picture: pictureRef.current?.value || '',
+      picture: image || '',
       country: countryRef.current?.value || '',
+      password: passwordRef.current?.value || '',
+      confirmPassword: confirmPasswordRef.current?.value || '',
       terms: termsRef.current?.checked || false,
     };
 
@@ -57,9 +64,25 @@ const UncontrolledForm: React.FC = () => {
       });
   };
 
+  const handlePasswordChange = () => {
+    const password = passwordRef.current?.value || '';
+    const strength = checkPassword(password);
+    setPasswordStrength(strength.trim());
+  };
+
+  const handlePictureChange = () => {
+    const file = pictureRef.current?.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
-      <h2>Uncontrolled Form</h2>
       <form className="form" onSubmit={onSubmit}>
         <div className="form__field">
           <label htmlFor="name" className="form__label">
@@ -113,12 +136,6 @@ const UncontrolledForm: React.FC = () => {
           {errors.gender && <p className="form__error">{errors.gender}</p>}
         </div>
 
-        <div className="input-field">
-          <label>Picture</label>
-          <input ref={pictureRef} />
-          {errors.picture && <p className="form__error">{errors.picture}</p>}
-        </div>
-
         <div className="form__field">
           <label htmlFor="country" className="form__label">
             Country
@@ -135,6 +152,51 @@ const UncontrolledForm: React.FC = () => {
             ))}
           </select>
           {errors.country && <p className="form__error">{errors.country}</p>}
+        </div>
+
+        <div className="form__field">
+          <label htmlFor="password" className="form__label">
+            Password
+          </label>
+          <input
+            ref={passwordRef}
+            id="password"
+            className="form__input"
+            type="password"
+            onChange={handlePasswordChange}
+          />
+          {errors.password && <p className="form__error">{errors.password}</p>}
+          <p className="input__note">Strength: {passwordStrength}</p>
+        </div>
+
+        <div className="form__field">
+          <label htmlFor="confirmPassword" className="form__label">
+            Confirm Password
+          </label>
+          <input
+            ref={confirmPasswordRef}
+            id="confirmPassword"
+            className="form__input"
+            type="password"
+          />
+          {errors.confirmPassword && (
+            <p className="form__error">{errors.confirmPassword}</p>
+          )}
+        </div>
+
+        <div className="input-field">
+          <label htmlFor="picture" className="form__label">
+            Picture
+          </label>
+          <input
+            ref={pictureRef}
+            id="picture"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handlePictureChange}
+          />
+          {errors.picture && <p className="form__error">{errors.picture}</p>}
+          {image && <p className="input__note">Picture saved</p>}
         </div>
 
         <div className="form__checkbox">

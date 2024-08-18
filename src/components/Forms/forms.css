@@ -60,3 +60,8 @@
   align-items: center;
 }
 
+.input__note {
+  font-size: 0.7rem;
+  margin: 0;
+}
+
