@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import './forms.css';
@@ -13,6 +13,8 @@ const ReactHookForm: React.FC = () => {
   const countries = useAppSelector((state) => state.countries);
   const dispatch = useAppDispatch();
 
+  const [image, setImage] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -22,6 +24,17 @@ const ReactHookForm: React.FC = () => {
   const onSubmit = (data: FormInputs) => {
     dispatch(addFormAnswers(data));
     navigate('/');
+  };
+
+  const handlePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -81,14 +94,6 @@ const ReactHookForm: React.FC = () => {
           )}
         </div>
 
-        <div className="input-field">
-          <label>Picture</label>
-          <input {...register('picture')} />
-          {errors.picture && (
-            <p className="form__error">{errors.picture.message}</p>
-          )}
-        </div>
-
         <div className="form__field">
           <label htmlFor="country" className="form__label">
             Country
@@ -109,6 +114,53 @@ const ReactHookForm: React.FC = () => {
           {errors.country && (
             <p className="form__error">{errors.country.message}</p>
           )}
+        </div>
+
+        <div className="form__field">
+          <label htmlFor="password" className="form__label">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            className="form__input"
+            {...register('password')}
+          />
+          {errors.password && (
+            <p className="form__error">{errors.password.message}</p>
+          )}
+        </div>
+
+        <div className="form__field">
+          <label htmlFor="confirmPassword" className="form__label">
+            Confirm Password
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            className="form__input"
+            {...register('confirmPassword')}
+          />
+          {errors.confirmPassword && (
+            <p className="form__error">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+
+        <div className="input-field">
+          <label className="form__label" htmlFor="picture">
+            Picture
+          </label>
+          <input
+            {...register('picture')}
+            id="picture"
+            type="file"
+            accept=".jpeg,.jpg,.png"
+            onChange={handlePictureChange}
+          />
+          {errors.picture && (
+            <p className="form__error">{errors.picture.message}</p>
+          )}
+          {image && <p className="input__note">Picture saved</p>}
         </div>
 
         <div className="form__checkbox">
