@@ -14,7 +14,8 @@ export const schema = yup.object().shape({
     ),
   age: yup
     .number()
-    .min(0, 'Age can not be negative')
+    .typeError('Age must be a number')
+    .min(0, 'Age must be positive')
     .required('Age is a required field'),
   email: yup.string().email().required('Email is a required field'),
   gender: yup.string().required('Gender is a required field'),

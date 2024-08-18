@@ -1,9 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
 .form__field {
+  height: 4rem;
   display: flex;
   flex-direction: column;
   width: fit-content;
   position: static;
-  max-width: 240px;
+
 }
 
 .form__label {
@@ -37,6 +45,18 @@
 }
 
 .form__radio {
+  width: 16.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form__select{
+  width: 16.5rem;
+}
+
+.form__checkbox {
+  width: 16.5rem;
   display: flex;
+  align-items: center;
 }
 
