@@ -22,8 +22,11 @@ const ReactHookForm: React.FC = () => {
   } = useForm<FormInputs>({ resolver: yupResolver(schema) });
 
   const onSubmit = (data: FormInputs) => {
-    dispatch(addFormAnswers(data));
-    navigate('/');
+    console.log('data', data);
+    if (image) {
+      dispatch(addFormAnswers({ ...data, picture: image }));
+      navigate('/');
+    }
   };
 
   const handlePictureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
